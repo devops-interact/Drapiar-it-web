@@ -2236,6 +2236,7 @@ section:has(.diffs-grid) {
   .solution-hero .hero-buttons {
     justify-content: center;
   }
+}
   
   /* Mobile Navigation */
 @media (max-width: 992px) {
