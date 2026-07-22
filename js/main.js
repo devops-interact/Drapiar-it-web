@@ -337,8 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const revealElements = document.querySelectorAll('.reveal:not(.revealed)');
       revealElements.forEach(el => {
         const rect = el.getBoundingClientRect();
-        // Element triggers when top enters viewport minus 90px margin
-        if (rect.top < windowHeight - 90 && rect.bottom > 0) {
+        if (rect.top < windowHeight - 60 && rect.bottom > 0) {
           el.classList.add('revealed');
         }
       });
@@ -347,8 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('IntersectionObserver' in window) {
       const observerOptions = {
         root: null,
-        rootMargin: '0px 0px -100px 0px',
-        threshold: 0.08
+        rootMargin: '0px 0px -60px 0px',
+        threshold: 0.05
       };
 
       const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -369,11 +368,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', checkScrollReveal, { passive: true });
     window.addEventListener('resize', checkScrollReveal, { passive: true });
     
-    // Initial check on load
+    // Double requestAnimationFrame ensures browser paints the initial opacity:0 state before revealing
     requestAnimationFrame(() => {
-      checkScrollReveal();
-      setTimeout(checkScrollReveal, 150);
-      setTimeout(checkScrollReveal, 450);
+      requestAnimationFrame(() => {
+        checkScrollReveal();
+        setTimeout(checkScrollReveal, 200);
+      });
     });
   };
 
