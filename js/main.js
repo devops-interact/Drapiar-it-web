@@ -331,8 +331,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const observerOptions = {
       root: null,
-      rootMargin: '0px 0px 80px 0px',
-      threshold: 0.02
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.1
     };
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const allReveals = document.querySelectorAll('.reveal');
     allReveals.forEach(el => {
       const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight + 80 && rect.bottom > -80) {
+      if (rect.top < window.innerHeight - 40 && rect.bottom > 0) {
         el.classList.add('revealed');
       } else {
         revealObserver.observe(el);

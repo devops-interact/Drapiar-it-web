@@ -2246,12 +2246,12 @@ section:has(.diffs-grid) {
     top: 0 !important;
     right: -100% !important;
     width: 88vw !important;
-    max-width: 320px !important;
+    max-width: 330px !important;
     height: 100vh !important;
     max-height: 100vh !important;
     background: #FFFFFF !important;
     border-left: 1px solid var(--border-light) !important;
-    padding: 85px var(--spacing-20) var(--spacing-32) !important;
+    padding: 95px var(--spacing-28) var(--spacing-36) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
@@ -2279,7 +2279,7 @@ section:has(.diffs-grid) {
   .nav-list > li {
     width: 100% !important;
     border-bottom: 1px dashed rgba(0, 10, 156, 0.18) !important;
-    padding: 12px 0 !important;
+    padding: 14px 8px !important;
     box-sizing: border-box !important;
   }
 
@@ -2303,57 +2303,70 @@ section:has(.diffs-grid) {
   }
   
   .dropdown-menu {
-    position: static;
-    transform: none;
-    width: 100%;
-    opacity: 1;
-    visibility: visible;
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    opacity: 1 !important;
+    visibility: visible !important;
     display: none;
     grid-template-columns: 1fr;
-    background: rgba(0, 10, 156, 0.04);
-    border: 1px solid rgba(0, 10, 156, 0.1);
-    border-radius: var(--border-radius-sm);
-    box-shadow: none;
-    padding: var(--spacing-12);
-    margin-top: var(--spacing-8);
+    background: rgba(0, 10, 156, 0.05) !important;
+    border: 1px solid rgba(0, 10, 156, 0.12) !important;
+    border-left: 3px solid var(--color-primary) !important;
+    border-radius: var(--border-radius-sm) !important;
+    box-shadow: none !important;
+    padding: 12px 14px !important;
+    margin-top: 10px !important;
   }
   
   .dropdown-menu.open {
-    display: block;
+    display: block !important;
   }
   
   .nav-item-dropdown > a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
     color: var(--color-primary) !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
   }
   
   .nav-item-dropdown > a::after {
-    content: '▼';
-    font-size: 10px;
+    content: '▼' !important;
+    font-size: 11px !important;
     color: var(--color-primary) !important;
-    transition: var(--transition-fast);
+    margin-left: auto !important;
+    display: inline-block !important;
+    transition: transform var(--transition-fast) !important;
   }
   
   .nav-item-dropdown.open > a::after {
-    transform: rotate(180deg);
+    transform: rotate(180deg) !important;
   }
   
   .dropdown-item {
-    padding: var(--spacing-8);
+    display: block !important;
+    padding: 8px 6px !important;
+    border-bottom: 1px dashed rgba(0, 10, 156, 0.1) !important;
+  }
+
+  .dropdown-item:last-child {
+    border-bottom: none !important;
   }
 
   .dropdown-title {
     color: var(--color-primary) !important;
-    font-size: 13.5px;
-    font-weight: 600;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
   }
 
-  .dropdown-item:hover .dropdown-title {
-    color: var(--color-brand-dark) !important;
-    text-decoration: underline;
+  .dropdown-desc {
+    color: var(--text-muted) !important;
+    font-size: 11.5px !important;
+    margin-top: 2px !important;
   }
   
   .header-actions {
@@ -2636,23 +2649,29 @@ section, div[id] {
   .diff-card:nth-child(5) { top: 155px !important; z-index: 5; }
   .diff-card:nth-child(6) { top: 170px !important; z-index: 6; }
 
-  /* Industrias Móvil */
+  /* Industrias Móvil (Tarjetas más altas y espaciosas) */
   .industries-grid {
     grid-template-columns: 1fr !important;
-    gap: var(--spacing-12) !important;
+    gap: var(--spacing-16) !important;
   }
 
   .industry-card {
     text-align: left !important;
     align-items: center !important;
-    padding: var(--spacing-16) var(--spacing-20) !important;
+    padding: 20px 24px !important;
+    min-height: 72px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    gap: 16px !important;
   }
   
   /* CTA Final Section Móvil ("La próxima ventaja...") */
   .cta-final {
-    padding: var(--spacing-36) var(--spacing-20) !important;
+    padding: var(--spacing-56) var(--spacing-24) !important;
+    min-height: 380px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     border-radius: var(--border-radius-lg) !important;
     margin: 0 var(--spacing-16) !important;
     width: calc(100% - 32px) !important;
@@ -2669,26 +2688,26 @@ section, div[id] {
     width: 100% !important;
     max-width: 600px !important;
     margin: 0 auto !important;
-    padding: 0 var(--spacing-8) !important;
+    padding: 0 var(--spacing-12) !important;
     box-sizing: border-box !important;
   }
 
   .cta-final-title {
-    font-size: clamp(18px, 4.8vw, 24px) !important;
+    font-size: clamp(20px, 5vw, 26px) !important;
     line-height: 1.35 !important;
-    margin-bottom: var(--spacing-16) !important;
+    margin-bottom: var(--spacing-20) !important;
     padding: 0 var(--spacing-8) !important;
     box-sizing: border-box !important;
     word-break: break-word !important;
   }
 
   .cta-final-desc {
-    font-size: 13.5px !important;
-    line-height: 1.6 !important;
-    margin-bottom: var(--spacing-24) !important;
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    margin-bottom: var(--spacing-32) !important;
     padding: 0 var(--spacing-8) !important;
     box-sizing: border-box !important;
-    max-width: 520px !important;
+    max-width: 540px !important;
   }
 
   .cta-final .hero-buttons {
@@ -2775,11 +2794,11 @@ section, div[id] {
   animation: slideUp 0.4s ease-out forwards;
 }
 
-/* Scroll Reveal Animations (Special Sections Only) */
+/* Scroll Reveal Animations (Noticeable Slide Up) */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(44px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
