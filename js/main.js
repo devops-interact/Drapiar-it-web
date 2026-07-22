@@ -293,17 +293,20 @@ document.addEventListener('DOMContentLoaded', () => {
       '.results-grid',
       '.results-list',
       '.about-grid',
+      '.methodology-timeline',
       '.reveal-stagger'
     ];
 
     staggerContainers.forEach(containerSelector => {
       document.querySelectorAll(containerSelector).forEach(container => {
         const children = Array.from(container.children);
+        const delayStep = containerSelector === '.methodology-timeline' ? 160 : 110;
+        const maxDelay = containerSelector === '.methodology-timeline' ? 640 : 440;
         children.forEach((child, index) => {
           if (!child.classList.contains('reveal')) {
             child.classList.add('reveal');
           }
-          child.style.transitionDelay = `${Math.min(index * 110, 440)}ms`;
+          child.style.transitionDelay = `${Math.min(index * delayStep, maxDelay)}ms`;
         });
       });
     });
