@@ -2041,7 +2041,7 @@ section:has(.diffs-grid) {
   font-family: var(--font-body);
   font-size: 15px;
   color: var(--text-muted);
-  margin-bottom: var(--spacing-32);
+  margin-bottom: 48px;
   text-align: center;
 }
 
@@ -2802,7 +2802,7 @@ section, div[id] {
   .cta-final-desc {
     font-size: 14.5px !important;
     line-height: 1.65 !important;
-    margin-bottom: var(--spacing-36) !important;
+    margin-bottom: 48px !important;
     padding: 0 var(--spacing-8) !important;
     box-sizing: border-box !important;
     max-width: 540px !important;
