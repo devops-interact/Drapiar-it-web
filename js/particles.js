@@ -166,16 +166,6 @@
 
       const isClosest = (p === closestParticle);
 
-      if (isClosest) {
-        // Draw subtle laser connecting line from cursor to closest particle
-        ctx.beginPath();
-        ctx.moveTo(mouse.x, mouse.y);
-        ctx.lineTo(p.position.x, p.position.y);
-        ctx.strokeStyle = `rgba(0, 10, 156, ${(1 - minMouseDist / 130) * 0.45})`;
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-      }
-
       // Particle dot (highlighted on hover)
       ctx.beginPath();
       ctx.arc(p.position.x, p.position.y, isClosest ? 3.5 : p.radius, 0, Math.PI * 2);

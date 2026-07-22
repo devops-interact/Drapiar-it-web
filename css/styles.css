@@ -249,10 +249,10 @@ p, .trust-card-desc, .pain-desc, .unit-desc, .step-desc, .industry-desc, .diff-d
 
 .section-tag, .hero-tag {
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   color: var(--color-primary);
   display: inline-block;
   margin-bottom: var(--spacing-16);
@@ -2017,7 +2017,11 @@ section:has(.diffs-grid) {
   background: var(--bg-surface);
   border: 1px solid var(--border-light);
   border-radius: var(--border-radius-lg);
-  padding: var(--spacing-64) var(--spacing-32);
+  padding: 80px 48px;
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   box-shadow: var(--shadow-sm);
 }
@@ -2765,8 +2769,8 @@ section, div[id] {
   
   /* CTA Final Section Móvil ("La próxima ventaja...") */
   .cta-final {
-    padding: var(--spacing-56) var(--spacing-24) !important;
-    min-height: 380px !important;
+    padding: 64px 24px !important;
+    min-height: 420px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
