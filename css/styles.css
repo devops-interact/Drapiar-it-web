@@ -2909,9 +2909,9 @@ section, div[id] {
 
 /* Scroll Reveal Animations (Noticeable Slide Up Desktop & Mobile) */
 .reveal {
-  opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0 !important;
+  transform: translateY(40px) !important;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) !important;
   will-change: opacity, transform;
 }
 

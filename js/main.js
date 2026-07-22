@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!child.classList.contains('reveal')) {
             child.classList.add('reveal');
           }
-          child.style.transitionDelay = `${Math.min(index * 90, 360)}ms`;
+          child.style.transitionDelay = `${Math.min(index * 110, 440)}ms`;
         });
       });
     });
@@ -337,7 +337,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const revealElements = document.querySelectorAll('.reveal:not(.revealed)');
       revealElements.forEach(el => {
         const rect = el.getBoundingClientRect();
-        if (rect.top < windowHeight - 40 && rect.bottom > 0) {
+        // Element triggers when top enters viewport minus 90px margin
+        if (rect.top < windowHeight - 90 && rect.bottom > 0) {
           el.classList.add('revealed');
         }
       });
@@ -346,8 +347,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('IntersectionObserver' in window) {
       const observerOptions = {
         root: null,
-        rootMargin: '0px 0px -40px 0px',
-        threshold: 0.05
+        rootMargin: '0px 0px -100px 0px',
+        threshold: 0.08
       };
 
       const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -368,11 +369,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', checkScrollReveal, { passive: true });
     window.addEventListener('resize', checkScrollReveal, { passive: true });
     
-    // Initial checks with requestAnimationFrame to ensure CSS opacity 0 is rendered first
+    // Initial check on load
     requestAnimationFrame(() => {
       checkScrollReveal();
-      setTimeout(checkScrollReveal, 100);
-      setTimeout(checkScrollReveal, 400);
+      setTimeout(checkScrollReveal, 150);
+      setTimeout(checkScrollReveal, 450);
     });
   };
 
