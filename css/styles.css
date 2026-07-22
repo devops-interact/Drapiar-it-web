@@ -2421,16 +2421,23 @@ section, div[id] {
 }
 
 .mobile-text {
-  display: none;
+  display: none !important;
 }
 
-@media (max-width: 640px) {
+.desktop-text {
+  display: inline !important;
+}
+
+@media (max-width: 992px) {
   .desktop-text {
     display: none !important;
   }
   .mobile-text {
     display: inline !important;
   }
+}
+
+@media (max-width: 640px) {
   .nav-item-dropdown {
     width: 100% !important;
   }
@@ -2910,12 +2917,12 @@ section, div[id] {
 /* Scroll Reveal Animations (Noticeable Slide Up Desktop & Mobile) */
 .reveal {
   opacity: 0;
-  transform: translateY(48px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(44px) scale(0.97);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 .reveal.revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
