@@ -278,17 +278,61 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================
-     6. SCROLL REVEAL ANIMATIONS (Fade Up & Stagger)
+     6. SCROLL REVEAL ANIMATIONS (DESKTOP & MOBILE)
      ========================================== */
   const initScrollReveal = () => {
-    // Only observe elements with explicit .reveal class (e.g. Methodology steps)
-    const revealElements = document.querySelectorAll('.reveal');
-    if (!revealElements.length) return;
+    const staggerContainers = [
+      '.trust-grid',
+      '.grid-2',
+      '.grid-3',
+      '.grid-4',
+      '.reto-right-grid',
+      '.industries-grid',
+      '.diffs-grid',
+      '.results-grid',
+      '.about-grid',
+      '.reveal-stagger'
+    ];
+
+    staggerContainers.forEach(containerSelector => {
+      document.querySelectorAll(containerSelector).forEach(container => {
+        const children = Array.from(container.children);
+        children.forEach((child, index) => {
+          if (!child.classList.contains('reveal')) {
+            child.classList.add('reveal');
+          }
+          child.style.transitionDelay = `${Math.min(index * 100, 400)}ms`;
+        });
+      });
+    });
+
+    const componentSelectors = [
+      '.section-header',
+      '.trust-title',
+      '.trust-card',
+      '.unit-card',
+      '.pain-point',
+      '.step-card',
+      '.result-item',
+      '.industry-card',
+      '.diff-card',
+      '.cta-final',
+      '.about-box',
+      '.contact-info-panel',
+      '.contact-form-panel',
+      '.reto-left'
+    ];
+
+    document.querySelectorAll(componentSelectors.join(', ')).forEach(el => {
+      if (!el.classList.contains('reveal')) {
+        el.classList.add('reveal');
+      }
+    });
 
     const observerOptions = {
       root: null,
-      rootMargin: '0px 0px -40px 0px',
-      threshold: 0.12
+      rootMargin: '0px 0px 80px 0px',
+      threshold: 0.02
     };
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -300,9 +344,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, observerOptions);
 
-    revealElements.forEach(el => {
+    const allReveals = document.querySelectorAll('.reveal');
+    allReveals.forEach(el => {
       const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
+      if (rect.top < window.innerHeight + 80 && rect.bottom > -80) {
         el.classList.add('revealed');
       } else {
         revealObserver.observe(el);
