@@ -281,63 +281,10 @@ document.addEventListener('DOMContentLoaded', () => {
      6. SCROLL REVEAL ANIMATIONS (Fade Up & Stagger)
      ========================================== */
   const initScrollReveal = () => {
-    // Skip if user prefers reduced motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
+    // Only observe elements with explicit .reveal class (e.g. Methodology steps)
+    const revealElements = document.querySelectorAll('.reveal');
+    if (!revealElements.length) return;
 
-    // Grid containers to automatically apply staggered transition delays
-    const staggerContainers = [
-      '.trust-grid',
-      '.grid-2',
-      '.grid-3',
-      '.grid-4',
-      '.reto-right-grid',
-      '.industries-grid',
-      '.diff-grid',
-      '.results-grid',
-      '.about-grid',
-      '.reveal-stagger'
-    ];
-
-    staggerContainers.forEach(containerSelector => {
-      document.querySelectorAll(containerSelector).forEach(container => {
-        const children = Array.from(container.children);
-        children.forEach((child, index) => {
-          if (!child.classList.contains('reveal')) {
-            child.classList.add('reveal');
-          }
-          child.style.transitionDelay = `${index * 150}ms`;
-        });
-      });
-    });
-
-    // Standalone section components
-    const componentSelectors = [
-      '.section-header',
-      '.trust-title',
-      '.trust-card',
-      '.unit-card',
-      '.pain-card',
-      '.step-card',
-      '.result-card',
-      '.industry-card',
-      '.diff-card',
-      '.cta-final',
-      '.about-box',
-      '.contact-info-panel',
-      '.contact-form-panel',
-      '.reto-left',
-      '.reveal'
-    ];
-
-    document.querySelectorAll(componentSelectors.join(', ')).forEach(el => {
-      if (!el.classList.contains('reveal')) {
-        el.classList.add('reveal');
-      }
-    });
-
-    // Single-execution IntersectionObserver
     const observerOptions = {
       root: null,
       rootMargin: '0px 0px -40px 0px',
@@ -348,19 +295,15 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
-          // Unobserve to guarantee animation runs ONLY ONCE
           observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    document.querySelectorAll('.reveal').forEach(el => {
+    revealElements.forEach(el => {
       const rect = el.getBoundingClientRect();
-      // If element is already in the viewport on page load, reveal after small delay
       if (rect.top < window.innerHeight && rect.bottom > 0) {
-        setTimeout(() => {
-          el.classList.add('revealed');
-        }, 100);
+        el.classList.add('revealed');
       } else {
         revealObserver.observe(el);
       }

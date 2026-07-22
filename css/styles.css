@@ -2752,11 +2752,11 @@ section, div[id] {
   animation: slideUp 0.4s ease-out forwards;
 }
 
-/* Scroll Reveal Animations (Fade Up & Stagger) */
+/* Scroll Reveal Animations (Special Sections Only) */
 .reveal {
   opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1), transform 2.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
