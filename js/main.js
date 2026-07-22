@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================
-     6. SCROLL REVEAL ANIMATIONS (DESKTOP & MOBILE)
+     6. SCROLL REVEAL ANIMATIONS (DESKTOP & MOBILE BULLETPROOF)
      ========================================== */
   const initScrollReveal = () => {
     const staggerContainers = [
@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!child.classList.contains('reveal')) {
             child.classList.add('reveal');
           }
-          child.style.transitionDelay = `${Math.min(index * 120, 480)}ms`;
+          child.style.transitionDelay = `${Math.min(index * 110, 440)}ms`;
         });
       });
     });
@@ -330,25 +330,46 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -40px 0px',
-      threshold: 0
-    };
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
+    const checkScrollReveal = () => {
+      const windowHeight = window.innerHeight;
+      const revealElements = document.querySelectorAll('.reveal:not(.revealed)');
+      revealElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < windowHeight - 30 && rect.bottom > 0) {
+          el.classList.add('revealed');
         }
       });
-    }, observerOptions);
+    };
 
-    const allReveals = document.querySelectorAll('.reveal');
-    allReveals.forEach(el => {
-      revealObserver.observe(el);
-    });
+    if ('IntersectionObserver' in window) {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -20px 0px',
+        threshold: 0
+      };
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(el => {
+        revealObserver.observe(el);
+      });
+    }
+
+    // Scroll & load listeners as guaranteed fallback for Desktop
+    window.addEventListener('scroll', checkScrollReveal, { passive: true });
+    window.addEventListener('resize', checkScrollReveal, { passive: true });
+    
+    // Initial checks on load
+    checkScrollReveal();
+    setTimeout(checkScrollReveal, 150);
+    setTimeout(checkScrollReveal, 600);
   };
 
   initScrollReveal();
