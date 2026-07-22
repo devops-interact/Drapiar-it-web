@@ -286,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '.grid-2',
       '.grid-3',
       '.grid-4',
+      '.grid-8',
       '.reto-right-grid',
       '.industries-grid',
       '.diffs-grid',
@@ -302,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!child.classList.contains('reveal')) {
             child.classList.add('reveal');
           }
-          child.style.transitionDelay = `${Math.min(index * 110, 440)}ms`;
+          child.style.transitionDelay = `${Math.min(index * 90, 360)}ms`;
         });
       });
     });
@@ -321,7 +322,8 @@ document.addEventListener('DOMContentLoaded', () => {
       '.about-box',
       '.contact-info-panel',
       '.contact-form-panel',
-      '.reto-left'
+      '.reto-left',
+      '.methodology-step'
     ];
 
     document.querySelectorAll(componentSelectors.join(', ')).forEach(el => {
@@ -331,11 +333,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const checkScrollReveal = () => {
-      const windowHeight = window.innerHeight;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
       const revealElements = document.querySelectorAll('.reveal:not(.revealed)');
       revealElements.forEach(el => {
         const rect = el.getBoundingClientRect();
-        if (rect.top < windowHeight - 30 && rect.bottom > 0) {
+        if (rect.top < windowHeight - 40 && rect.bottom > 0) {
           el.classList.add('revealed');
         }
       });
@@ -344,8 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('IntersectionObserver' in window) {
       const observerOptions = {
         root: null,
-        rootMargin: '0px 0px -20px 0px',
-        threshold: 0
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.05
       };
 
       const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -362,14 +364,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Scroll & load listeners as guaranteed fallback for Desktop
+    // Scroll & load listeners as guaranteed fallback for Desktop & Mobile
     window.addEventListener('scroll', checkScrollReveal, { passive: true });
     window.addEventListener('resize', checkScrollReveal, { passive: true });
     
-    // Initial checks on load
-    checkScrollReveal();
-    setTimeout(checkScrollReveal, 150);
-    setTimeout(checkScrollReveal, 600);
+    // Initial checks with requestAnimationFrame to ensure CSS opacity 0 is rendered first
+    requestAnimationFrame(() => {
+      checkScrollReveal();
+      setTimeout(checkScrollReveal, 100);
+      setTimeout(checkScrollReveal, 400);
+    });
   };
 
   initScrollReveal();
