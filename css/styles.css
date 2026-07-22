@@ -558,17 +558,20 @@ p, .trust-card-desc, .pain-desc, .unit-desc, .step-desc, .industry-desc, .diff-d
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 20px;
+  width: 34px;
+  height: 24px;
   cursor: pointer;
   z-index: 120;
+  padding: 2px;
+  box-sizing: border-box;
 }
 
 .menu-toggle span {
   width: 100%;
-  height: 2px;
+  height: 3px;
+  border-radius: 2px;
   background-color: #FFFFFF;
-  transition: var(--transition-normal);
+  transition: var(--transition-fast);
 }
 
 /* Footer styling */
@@ -2231,37 +2234,57 @@ section:has(.diffs-grid) {
   }
   
   /* Mobile Navigation */
+@media (max-width: 992px) {
+  /* Mobile Navigation Container */
   .menu-toggle {
-    display: flex;
+    display: flex !important;
+    z-index: 120 !important;
   }
   
   .nav-menu {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    max-width: 320px;
-    height: 100vh;
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    width: 88vw !important;
+    max-width: 320px !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
     background: #FFFFFF !important;
-    border-left: 1px solid var(--border-light);
-    padding: 100px var(--spacing-32) var(--spacing-32);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: var(--transition-normal);
-    z-index: 105;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+    border-left: 1px solid var(--border-light) !important;
+    padding: 85px var(--spacing-20) var(--spacing-32) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    z-index: 110 !important;
+    box-shadow: -10px 0 30px rgba(0, 10, 156, 0.15) !important;
+    box-sizing: border-box !important;
   }
   
   .nav-menu.open {
-    right: 0;
+    right: 0 !important;
   }
   
   .nav-list {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-20);
-    width: 100%;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .nav-list > li {
+    width: 100% !important;
+    border-bottom: 1px dashed rgba(0, 10, 156, 0.18) !important;
+    padding: 12px 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .nav-list > li:last-child {
+    border-bottom: none !important;
   }
   
   .nav-menu .nav-link {
@@ -2432,18 +2455,24 @@ section, div[id] {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  /* Metodología Móvil (Separación de Círculos y Título) */
+  /* Metodología Móvil (Separación de Círculos, Línea Punteada Vertical y Título) */
   .methodology-timeline {
-    flex-direction: column;
-    gap: var(--spacing-32);
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--spacing-32) !important;
+    position: relative !important;
   }
   
   .methodology-timeline::before {
-    top: 0;
-    bottom: 0;
-    left: 28px;
-    width: 2px;
-    height: 100%;
+    content: '' !important;
+    position: absolute !important;
+    top: 27px !important;
+    bottom: 27px !important;
+    left: 27px !important;
+    width: 0 !important;
+    height: calc(100% - 54px) !important;
+    border-left: 2px dashed rgba(0, 10, 156, 0.35) !important;
+    z-index: 0 !important;
   }
   
   .methodology-step {
@@ -2453,6 +2482,8 @@ section, div[id] {
     gap: 18px !important;
     padding: 0 !important;
     width: 100% !important;
+    position: relative !important;
+    z-index: 1 !important;
   }
   
   .step-number {
@@ -2460,6 +2491,17 @@ section, div[id] {
     flex-shrink: 0 !important;
     width: 54px !important;
     height: 54px !important;
+    border-radius: 50% !important;
+    background: var(--color-primary) !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    font-size: 19px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    z-index: 2 !important;
+    box-shadow: 0 0 0 4px #FFFFFF, var(--shadow-sm) !important;
   }
   
   .step-content {
@@ -2587,11 +2629,11 @@ section, div[id] {
   
   /* CTA Final Section Móvil ("La próxima ventaja...") */
   .cta-final {
-    padding: var(--spacing-40) var(--spacing-24) !important;
+    padding: var(--spacing-36) var(--spacing-20) !important;
     border-radius: var(--border-radius-lg) !important;
-    margin: 0 auto !important;
-    width: 100% !important;
-    max-width: 100% !important;
+    margin: 0 var(--spacing-16) !important;
+    width: calc(100% - 32px) !important;
+    max-width: calc(100% - 32px) !important;
     box-sizing: border-box !important;
     text-align: center !important;
   }
@@ -2602,23 +2644,28 @@ section, div[id] {
     align-items: center !important;
     text-align: center !important;
     width: 100% !important;
-    max-width: 680px !important;
+    max-width: 600px !important;
     margin: 0 auto !important;
+    padding: 0 var(--spacing-8) !important;
     box-sizing: border-box !important;
   }
 
   .cta-final-title {
-    font-size: clamp(20px, 5vw, 26px) !important;
-    line-height: 1.3 !important;
+    font-size: clamp(18px, 4.8vw, 24px) !important;
+    line-height: 1.35 !important;
     margin-bottom: var(--spacing-16) !important;
+    padding: 0 var(--spacing-8) !important;
+    box-sizing: border-box !important;
     word-break: break-word !important;
   }
 
   .cta-final-desc {
-    font-size: 14px !important;
+    font-size: 13.5px !important;
     line-height: 1.6 !important;
-    margin-bottom: var(--spacing-28) !important;
-    max-width: 600px !important;
+    margin-bottom: var(--spacing-24) !important;
+    padding: 0 var(--spacing-8) !important;
+    box-sizing: border-box !important;
+    max-width: 520px !important;
   }
 
   .cta-final .hero-buttons {

@@ -32,18 +32,37 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================== */
   if (menuToggle && navMenu) {
     menuToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
-      // Hamburger animation (simple toggle)
+      const isOpen = navMenu.classList.toggle('open');
+      menuToggle.classList.toggle('is-active', isOpen);
+      
       const spans = menuToggle.querySelectorAll('span');
-      if (navMenu.classList.contains('open')) {
+      if (isOpen) {
         spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+        spans[0].style.backgroundColor = '#000A9C';
         spans[1].style.opacity = '0';
         spans[2].style.transform = 'rotate(-45deg) translate(6px, -7px)';
+        spans[2].style.backgroundColor = '#000A9C';
       } else {
         spans[0].style.transform = 'none';
+        spans[0].style.backgroundColor = '#FFFFFF';
         spans[1].style.opacity = '1';
         spans[2].style.transform = 'none';
+        spans[2].style.backgroundColor = '#FFFFFF';
       }
+    });
+
+    // Close mobile menu when clicking any nav link
+    navMenu.querySelectorAll('a:not(#solutionsToggle)').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        menuToggle.classList.remove('is-active');
+        const spans = menuToggle.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[0].style.backgroundColor = '#FFFFFF';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+        spans[2].style.backgroundColor = '#FFFFFF';
+      });
     });
   }
 
