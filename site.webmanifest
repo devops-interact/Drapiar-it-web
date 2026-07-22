@@ -1,0 +1,21 @@
+{
+  "name": "drapiar IT",
+  "short_name": "drapiar IT",
+  "description": "Integrador tecnológico especializado en Hiperautomatización, IA Agéntica, BPM, Low-Code y Desarrollo de Software.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#000A9C",
+  "icons": [
+    {
+      "src": "/images/logos/isotipo drapiar it.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/images/logos/isotipo drapiar it.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

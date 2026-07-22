@@ -1,0 +1,11 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE / Gemini
+.gemini/
+.idea/
+.vscode/
+
+# Logs
+*.log
