@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>drapiar IT | Interactive Technology Blueprints</title>
+  <meta name="description" content="Explorador interactivo de Blueprints tecnológicos para las 8 soluciones empresariales de drapiar IT.">
+  <meta name="theme-color" content="#000A9C">
+
+  <!-- Favicons & Touch Icons -->
+  <link rel="icon" type="image/jpeg" href="images/logos/isotipo drapiar it.jpeg">
+  <link rel="apple-touch-icon" href="images/logos/isotipo drapiar it.jpeg">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css?v=1.0.7">
+  <link rel="stylesheet" href="css/blueprints.css?v=1.0.0">
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="index.html" class="logo-link">
+        <span class="logo-icon"></span>
+        <span>drapiar <span style="color: var(--color-secondary);">IT</span></span>
+      </a>
+      
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Inicio</a></li>
+          <li><a href="index2.html" class="nav-link active">Blueprints</a></li>
+          <li class="nav-item-dropdown">
+            <a href="#" class="nav-link" id="solutionsToggle">
+              <span>Soluciones</span>
+              <svg class="dropdown-arrow-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </a>
+            <div class="dropdown-menu" id="solutionsDropdown">
+              <a href="soluciones/hiperautomatizacion-rpa.html" class="dropdown-item">
+                <span class="dropdown-title">Hiperautomatización y RPA</span>
+                <span class="dropdown-desc">Automatiza procesos críticos de negocio</span>
+              </a>
+              <a href="soluciones/ia-agentica.html" class="dropdown-item">
+                <span class="dropdown-title">IA e IA Agéntica</span>
+                <span class="dropdown-desc">Agentes cognitivos que actúan y deciden</span>
+              </a>
+              <a href="soluciones/bpm-low-code.html" class="dropdown-item">
+                <span class="dropdown-title">BPM y Low-Code</span>
+                <span class="dropdown-desc">Digitaliza y orquesta flujos de trabajo</span>
+              </a>
+              <a href="soluciones/desarrollo-de-software.html" class="dropdown-item">
+                <span class="dropdown-title">Desarrollo de Software</span>
+                <span class="dropdown-desc">Soluciones y plataformas a la medida</span>
+              </a>
+              <a href="soluciones/aplicaciones-moviles.html" class="dropdown-item">
+                <span class="dropdown-title">Aplicaciones Móviles</span>
+                <span class="dropdown-desc">Lleva tu operación al entorno móvil</span>
+              </a>
+              <a href="soluciones/consultoria-especializada.html" class="dropdown-item">
+                <span class="dropdown-title">Consultoría Especializada</span>
+                <span class="dropdown-desc">Hoja de ruta y business case de ROI</span>
+              </a>
+              <a href="soluciones/computer-vision.html" class="dropdown-item">
+                <span class="dropdown-title">Computer Vision</span>
+                <span class="dropdown-desc">Monitoreo y análisis visual en tiempo real</span>
+              </a>
+              <a href="soluciones/realidad-virtual-aumentada.html" class="dropdown-item">
+                <span class="dropdown-title">Realidad Virtual y AR</span>
+                <span class="dropdown-desc">Experiencias y simulaciones inmersivas</span>
+              </a>
+            </div>
+          </li>
+          <li><a href="industrias.html" class="nav-link">Industrias</a></li>
+          <li><a href="casos.html" class="nav-link">Casos de éxito</a></li>
+          <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+          <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+        </ul>
+        <div class="header-actions-mobile">
+          <a href="#" class="btn btn-primary" data-open-modal>Agenda una consultoría</a>
+        </div>
+      </nav>
+      
+      <div class="header-actions">
+        <a href="#" class="btn btn-primary" data-open-modal>Agenda una consultoría</a>
+      </div>
+      
+      <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Blueprint Navigation Bar -->
+  <div class="blueprint-nav-bar">
+    <div class="blueprint-nav-container">
+      <a href="#blueprint-rpa" class="blueprint-nav-item active">01. RPA & Auto</a>
+      <a href="#blueprint-ia" class="blueprint-nav-item">02. IA Agéntica</a>
+      <a href="#blueprint-bpm" class="blueprint-nav-item">03. BPM Low-Code</a>
+      <a href="#blueprint-dev" class="blueprint-nav-item">04. Software Dev</a>
+      <a href="#blueprint-mobile" class="blueprint-nav-item">05. Apps Móviles</a>
+      <a href="#blueprint-consulting" class="blueprint-nav-item">06. Consultoría</a>
+      <a href="#blueprint-vision" class="blueprint-nav-item">07. Vision AI</a>
+      <a href="#blueprint-vr" class="blueprint-nav-item">08. VR & AR</a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: HIPERAUTOMATIZACIÓN Y RPA -->
+  <section id="blueprint-rpa" class="blueprint-hero">
+    <div class="blueprint-spotlight"></div>
+    <div class="blueprint-container">
+      <div class="blueprint-header">
+        <span class="blueprint-tag">INTERACTIVE BLUEPRINT 01</span>
+        <h1 class="blueprint-title">Hiperautomatización y RPA</h1>
+        <p class="blueprint-subtitle">Representación técnica de un flujo empresarial integrado: ERP ➔ CRM ➔ Email ➔ Excel ➔ Robot ➔ Output</p>
+      </div>
+
+      <div class="blueprint-stage-grid">
+        <div class="blueprint-card">
+          <svg class="blueprint-svg" viewBox="0 0 700 240">
+            <!-- Connecting Paths -->
+            <path class="bp-line" d="M 70 120 L 160 120 L 250 120 L 340 120 L 450 120 L 610 120" />
+            <path class="bp-path-pulse" d="M 70 120 L 160 120 L 250 120 L 340 120 L 450 120 L 610 120" />
+
+            <!-- System Node 1: ERP -->
+            <g transform="translate(70, 120)">
+              <rect class="bp-box" x="-45" y="-30" width="90" height="60" />
+              <text class="bp-label" x="0" y="5" text-anchor="middle">ERP SAP</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+
+            <!-- System Node 2: CRM -->
+            <g transform="translate(160, 120)">
+              <rect class="bp-box" x="-35" y="-25" width="70" height="50" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">CRM</text>
+              <circle class="bp-node" cx="35" cy="0" />
+            </g>
+
+            <!-- System Node 3: EMAIL -->
+            <g transform="translate(250, 120)">
+              <rect class="bp-box" x="-35" y="-25" width="70" height="50" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">EMAIL</text>
+              <circle class="bp-node" cx="35" cy="0" />
+            </g>
+
+            <!-- System Node 4: EXCEL -->
+            <g transform="translate(340, 120)">
+              <rect class="bp-box" x="-35" y="-25" width="70" height="50" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">EXCEL</text>
+              <circle class="bp-node" cx="35" cy="0" />
+            </g>
+
+            <!-- Robot Core Node (Featured) -->
+            <g transform="translate(470, 120)">
+              <rect class="bp-box bp-box-active" x="-55" y="-38" width="110" height="76" />
+              <circle class="bp-node bp-node-active" cx="0" cy="-18" />
+              <text class="bp-label" x="0" y="8" text-anchor="middle" style="fill: var(--color-primary); font-weight:700;">ROBOT RPA</text>
+              <text class="bp-label" x="0" y="24" text-anchor="middle" style="font-size:9.5px; fill:#5F6368;">Auto Engine</text>
+            </g>
+
+            <!-- Output System -->
+            <g transform="translate(610, 120)">
+              <circle class="bp-node bp-node-active" cx="0" cy="0" />
+              <text class="bp-label" x="0" y="-18" text-anchor="middle" style="fill:#10b981; font-weight:700;">PROCESO</text>
+              <text class="bp-label" x="0" y="24" text-anchor="middle" style="fill:#10b981;">TERMINADO</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Telemetry Panel -->
+        <div class="telemetry-panel">
+          <div class="telemetry-header">
+            <span class="telemetry-title">TELEMETRÍA RPA</span>
+            <span class="telemetry-badge"><span class="telemetry-badge-dot"></span> EN LÍNEA</span>
+          </div>
+
+          <div class="telemetry-body">
+            <div class="telemetry-metric">
+              <span class="telemetry-label">ESTADO DE FLUJO</span>
+              <span class="telemetry-value" style="color:#10b981;">Automatización completada</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">SISTEMAS CONECTADOS</span>
+              <span class="telemetry-value">4 Sistemas (ERP, CRM, Mail, Excel)</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">TAREAS EJECUTADAS</span>
+              <span class="telemetry-value">12 tareas / 420 ms</span>
+            </div>
+            <div class="telemetry-log-box">
+              🟢 Esperando solicitud de proceso...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: INTELIGENCIA ARTIFICIAL AGÉNTICA -->
+  <section id="blueprint-ia" class="blueprint-hero">
+    <div class="blueprint-spotlight"></div>
+    <div class="blueprint-container">
+      <div class="blueprint-header">
+        <span class="blueprint-tag">INTERACTIVE BLUEPRINT 02</span>
+        <h2 class="blueprint-title">Inteligencia Artificial Agéntica</h2>
+        <p class="blueprint-subtitle">Agente Cognitivo Autónomo: Documentos + Datos + Contexto ➔ Neural Core ➔ Acción & Decisión</p>
+      </div>
+
+      <div class="blueprint-stage-grid">
+        <div class="blueprint-card">
+          <svg class="blueprint-svg" viewBox="0 0 700 240">
+            <!-- Inputs to Brain Connections -->
+            <path class="bp-line" d="M 100 50 L 350 120" />
+            <path class="bp-line" d="M 100 120 L 350 120" />
+            <path class="bp-line" d="M 100 190 L 350 120" />
+
+            <!-- Brain to Outputs Connections -->
+            <path class="bp-line" d="M 350 120 L 600 50" />
+            <path class="bp-line" d="M 350 120 L 600 120" />
+            <path class="bp-line" d="M 350 120 L 600 190" />
+
+            <!-- Pulse Paths -->
+            <path class="bp-path-pulse" d="M 100 50 L 350 120 L 600 50" />
+            <path class="bp-path-pulse" d="M 100 190 L 350 120 L 600 190" />
+
+            <!-- Input Nodes -->
+            <g transform="translate(100, 50)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Documentos</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+            <g transform="translate(100, 120)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Datos DB</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+            <g transform="translate(100, 190)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Contexto RAG</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+
+            <!-- Central Agent Brain Node -->
+            <g transform="translate(350, 120)">
+              <circle class="bp-box bp-box-active" cx="0" cy="0" r="46" />
+              <circle class="bp-node bp-node-active" cx="0" cy="0" r="10" />
+              <text class="bp-label" x="0" y="-16" text-anchor="middle" style="fill:var(--color-primary); font-weight:700;">AGENTE IA</text>
+              <text class="bp-label" x="0" y="24" text-anchor="middle" style="font-size:9.5px; fill:#5F6368;">Reasoning Core</text>
+            </g>
+
+            <!-- Output Nodes -->
+            <g transform="translate(600, 50)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <circle class="bp-node bp-node-active" cx="-45" cy="0" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Acción</text>
+            </g>
+            <g transform="translate(600, 120)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <circle class="bp-node bp-node-active" cx="-45" cy="0" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Decisión</text>
+            </g>
+            <g transform="translate(600, 190)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <circle class="bp-node bp-node-active" cx="-45" cy="0" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Resultado</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Telemetry Panel -->
+        <div class="telemetry-panel">
+          <div class="telemetry-header">
+            <span class="telemetry-title">TELEMETRÍA AGENTICA</span>
+            <span class="telemetry-badge"><span class="telemetry-badge-dot"></span> REASONING</span>
+          </div>
+
+          <div class="telemetry-body">
+            <div class="telemetry-metric">
+              <span class="telemetry-label">ESTADO DEL AGENTE</span>
+              <span class="telemetry-value">Thinking... Reasoning</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">MEMORIA & TOOL CALL</span>
+              <span class="telemetry-value">RAG Vector DB + API Call</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">PRECISIÓN DE DECISIÓN</span>
+              <span class="telemetry-value" style="color:var(--color-primary);">99.4% Confianza</span>
+            </div>
+            <div class="telemetry-log-box">
+              🧠 Agente en estado Standby
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: BPM Y LOW-CODE -->
+  <section id="blueprint-bpm" class="blueprint-hero">
+    <div class="blueprint-spotlight"></div>
+    <div class="blueprint-container">
+      <div class="blueprint-header">
+        <span class="blueprint-tag">INTERACTIVE BLUEPRINT 03</span>
+        <h2 class="blueprint-title">BPM y Low-Code</h2>
+        <p class="blueprint-subtitle">Diagrama Orquestador BPMN: Inicio ➔ Validación ➔ Aprobación ➔ Decisión ➔ Fin</p>
+      </div>
+
+      <div class="blueprint-stage-grid">
+        <div class="blueprint-card">
+          <svg class="blueprint-svg" viewBox="0 0 700 240">
+            <!-- Flow Paths -->
+            <path class="bp-line" d="M 60 120 L 170 120 L 310 120 L 460 120 L 620 120" />
+            <path class="bp-path-pulse" d="M 60 120 L 170 120 L 310 120 L 460 120 L 620 120" />
+
+            <!-- Start Event Node -->
+            <g transform="translate(60, 120)">
+              <circle class="bp-box bp-box-active" cx="0" cy="0" r="22" />
+              <circle class="bp-node bp-node-active" cx="0" cy="0" r="6" />
+              <text class="bp-label" x="0" y="38" text-anchor="middle">Inicio</text>
+            </g>
+
+            <!-- Task Node 1: Validación -->
+            <g transform="translate(170, 120)">
+              <rect class="bp-box" x="-45" y="-28" width="90" height="56" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Validación</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+
+            <!-- Task Node 2: Aprobación -->
+            <g transform="translate(310, 120)">
+              <rect class="bp-box" x="-45" y="-28" width="90" height="56" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Aprobación</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+
+            <!-- Gateway Node: Decisión -->
+            <g transform="translate(460, 120)">
+              <polygon class="bp-box bp-box-active" points="0,-32 32,0 0,32 -32,0" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle" style="font-size:10px; font-weight:700;">Decisión</text>
+              <circle class="bp-node bp-node-active" cx="32" cy="0" />
+            </g>
+
+            <!-- End Event Node -->
+            <g transform="translate(620, 120)">
+              <circle class="bp-box bp-box-active" cx="0" cy="0" r="22" style="stroke-width:3px; stroke:#10b981;" />
+              <circle class="bp-node bp-node-active" cx="0" cy="0" r="7" style="fill:#10b981;" />
+              <text class="bp-label" x="0" y="38" text-anchor="middle" style="fill:#10b981; font-weight:700;">Fin</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Telemetry Panel -->
+        <div class="telemetry-panel">
+          <div class="telemetry-header">
+            <span class="telemetry-title">TELEMETRÍA BPM</span>
+            <span class="telemetry-badge"><span class="telemetry-badge-dot"></span> ORQUESTANDO</span>
+          </div>
+
+          <div class="telemetry-body">
+            <div class="telemetry-metric">
+              <span class="telemetry-label">ESTADO DE FLUJO</span>
+              <span class="telemetry-value">Instancia Aprobada</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">TIEMPO DE CICLO</span>
+              <span class="telemetry-value" style="color:var(--color-primary);">-70% Reducción</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">CUMPLIMIENTO DE SLA</span>
+              <span class="telemetry-value" style="color:#10b981;">100% Compliant</span>
+            </div>
+            <div class="telemetry-log-box">
+              🔄 Diagrama BPM listo para ejecutar
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: DESARROLLO DE SOFTWARE -->
+  <section id="blueprint-dev" class="blueprint-hero">
+    <div class="blueprint-spotlight"></div>
+    <div class="blueprint-container">
+      <div class="blueprint-header">
+        <span class="blueprint-tag">INTERACTIVE BLUEPRINT 04</span>
+        <h2 class="blueprint-title">Desarrollo de Software</h2>
+        <p class="blueprint-subtitle">Arquitectura Cloud-Native: Frontend ➔ API Gateway ➔ Backend ➔ Microservicios ➔ Database ➔ Cloud</p>
+      </div>
+
+      <div class="blueprint-stage-grid">
+        <div class="blueprint-card">
+          <svg class="blueprint-svg" viewBox="0 0 700 240">
+            <!-- Interconnecting Paths -->
+            <path class="bp-line" d="M 60 120 L 160 120 L 270 120 L 400 120 L 530 120 L 640 120" />
+            <path class="bp-path-pulse" d="M 60 120 L 160 120 L 270 120 L 400 120 L 530 120 L 640 120" />
+
+            <g transform="translate(60, 120)">
+              <rect class="bp-box" x="-40" y="-24" width="80" height="48" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Frontend</text>
+              <circle class="bp-node" cx="40" cy="0" />
+            </g>
+
+            <g transform="translate(160, 120)">
+              <rect class="bp-box" x="-40" y="-24" width="80" height="48" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Gateway</text>
+              <circle class="bp-node" cx="40" cy="0" />
+            </g>
+
+            <g transform="translate(270, 120)">
+              <rect class="bp-box" x="-45" y="-24" width="90" height="48" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Backend</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+
+            <g transform="translate(400, 120)">
+              <rect class="bp-box bp-box-active" x="-55" y="-28" width="110" height="56" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle" style="fill:var(--color-primary); font-weight:700;">Microservicios</text>
+              <circle class="bp-node bp-node-active" cx="55" cy="0" />
+            </g>
+
+            <g transform="translate(530, 120)">
+              <rect class="bp-box" x="-45" y="-24" width="90" height="48" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Database</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+
+            <g transform="translate(640, 120)">
+              <circle class="bp-box bp-box-active" cx="0" cy="0" r="24" style="stroke:#10b981;" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle" style="fill:#10b981; font-weight:700;">Cloud</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Telemetry Panel -->
+        <div class="telemetry-panel">
+          <div class="telemetry-header">
+            <span class="telemetry-title">TELEMETRÍA DEV ARCH</span>
+            <span class="telemetry-badge"><span class="telemetry-badge-dot"></span> 200 OK</span>
+          </div>
+
+          <div class="telemetry-body">
+            <div class="telemetry-metric">
+              <span class="telemetry-label">SOLICITUD HTTP</span>
+              <span class="telemetry-value">Request GET /api/v1</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">LATENCIA DE RESPUESTA</span>
+              <span class="telemetry-value" style="color:#10b981;">38 ms (Fast)</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">ESTADO DE DESPLIEGUE</span>
+              <span class="telemetry-value" style="color:var(--color-primary);">Deployment Ready</span>
+            </div>
+            <div class="telemetry-log-box">
+              ☁️ Arquitectura activa & respondiendo
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: APLICACIONES MÓVILES -->
+  <section id="blueprint-mobile" class="blueprint-hero">
+    <div class="blueprint-spotlight"></div>
+    <div class="blueprint-container">
+      <div class="blueprint-header">
+        <span class="blueprint-tag">INTERACTIVE BLUEPRINT 05</span>
+        <h2 class="blueprint-title">Aplicaciones Móviles</h2>
+        <p class="blueprint-subtitle">Ecosistema Móvil Conectado: Phone Wireframe Outline + APIs + CRM + ERP + Offline Sync</p>
+      </div>
+
+      <div class="blueprint-stage-grid">
+        <div class="blueprint-card">
+          <svg class="blueprint-svg" viewBox="0 0 700 240">
+            <!-- Center Phone Wireframe -->
+            <g transform="translate(350, 120)">
+              <rect class="bp-box bp-box-active" x="-42" y="-85" width="84" height="170" rx="16" style="stroke-width:2px;" />
+              <rect class="bp-box" x="-32" y="-65" width="64" height="125" rx="6" style="fill:rgba(0,10,156,0.02);" />
+              <circle class="bp-node bp-node-active" cx="0" cy="72" r="5" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle" style="fill:var(--color-primary); font-weight:700;">APP MÓVIL</text>
+            </g>
+
+            <!-- Radial Connections -->
+            <path class="bp-line" d="M 120 60 L 308 120" />
+            <path class="bp-line" d="M 120 180 L 308 120" />
+            <path class="bp-line" d="M 580 60 L 392 120" />
+            <path class="bp-line" d="M 580 180 L 392 120" />
+
+            <path class="bp-path-pulse" d="M 120 60 L 308 120" />
+            <path class="bp-path-pulse" d="M 580 180 L 392 120" />
+
+            <!-- Connected System Nodes -->
+            <g transform="translate(120, 60)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">API REST</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+            <g transform="translate(120, 180)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">GPS Track</text>
+              <circle class="bp-node" cx="45" cy="0" />
+            </g>
+            <g transform="translate(580, 60)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <circle class="bp-node" cx="-45" cy="0" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Push Notif</text>
+            </g>
+            <g transform="translate(580, 180)">
+              <rect class="bp-box" x="-45" y="-18" width="90" height="36" />
+              <circle class="bp-node" cx="-45" cy="0" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Offline Sync</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Telemetry Panel -->
+        <div class="telemetry-panel">
+          <div class="telemetry-header">
+            <span class="telemetry-title">TELEMETRÍA MÓVIL</span>
+            <span class="telemetry-badge"><span class="telemetry-badge-dot"></span> SYNC ONLINE</span>
+          </div>
+
+          <div class="telemetry-body">
+            <div class="telemetry-metric">
+              <span class="telemetry-label">ESTADO DE SINCRONIZACIÓN</span>
+              <span class="telemetry-value">Sincronizando 3 APIs</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">MODO OFFLINE</span>
+              <span class="telemetry-value" style="color:#10b981;">Engine Operativo</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">ESTADO DE CONEXIÓN</span>
+              <span class="telemetry-value" style="color:var(--color-primary);">Status: Online</span>
+            </div>
+            <div class="telemetry-log-box">
+              📱 App Móvil Lista (Status: Online)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: CONSULTORÍA ESPECIALIZADA -->
+  <section id="blueprint-consulting" class="blueprint-hero">
+    <div class="blueprint-spotlight"></div>
+    <div class="blueprint-container">
+      <div class="blueprint-header">
+        <span class="blueprint-tag">INTERACTIVE BLUEPRINT 06</span>
+        <h2 class="blueprint-title">Consultoría Especializada</h2>
+        <p class="blueprint-subtitle">Roadmap de Transformación: Diagnóstico ➔ Estrategia ➔ Roadmap ➔ ROI Case ➔ Implementación</p>
+      </div>
+
+      <div class="blueprint-stage-grid">
+        <div class="blueprint-card">
+          <svg class="blueprint-svg" viewBox="0 0 700 240">
+            <!-- Timeline Path -->
+            <path class="bp-line" d="M 70 140 L 210 140 L 350 140 L 490 140 L 630 140" />
+            <path class="bp-path-pulse" d="M 70 140 L 210 140 L 350 140 L 490 140 L 630 140" />
+
+            <!-- Growth Curve SVG Path -->
+            <path class="bp-line" d="M 70 170 Q 210 160 350 130 T 630 60" style="stroke:var(--color-primary); stroke-dasharray:4,4;" />
+
+            <!-- Milestones -->
+            <g transform="translate(70, 140)">
+              <circle class="bp-node bp-node-active" cx="0" cy="0" r="10" />
+              <text class="bp-label" x="0" y="-24" text-anchor="middle">Diagnóstico</text>
+            </g>
+            <g transform="translate(210, 140)">
+              <circle class="bp-node bp-node-active" cx="0" cy="0" r="10" />
+              <text class="bp-label" x="0" y="-24" text-anchor="middle">Estrategia</text>
+            </g>
+            <g transform="translate(350, 140)">
+              <circle class="bp-node bp-node-active" cx="0" cy="0" r="12" style="fill:var(--color-primary);" />
+              <text class="bp-label" x="0" y="-26" text-anchor="middle" style="fill:var(--color-primary); font-weight:700;">Roadmap</text>
+            </g>
+            <g transform="translate(490, 140)">
+              <circle class="bp-node bp-node-active" cx="0" cy="0" r="10" />
+              <text class="bp-label" x="0" y="-24" text-anchor="middle">ROI Case</text>
+            </g>
+            <g transform="translate(630, 140)">
+              <circle class="bp-node bp-node-active" cx="0" cy="0" r="10" style="fill:#10b981; stroke:#10b981;" />
+              <text class="bp-label" x="0" y="-24" text-anchor="middle" style="fill:#10b981; font-weight:700;">Ejecución</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Telemetry Panel -->
+        <div class="telemetry-panel">
+          <div class="telemetry-header">
+            <span class="telemetry-title">TELEMETRÍA ROADMAP</span>
+            <span class="telemetry-badge"><span class="telemetry-badge-dot"></span> ROI PROYECTADO</span>
+          </div>
+
+          <div class="telemetry-body">
+            <div class="telemetry-metric">
+              <span class="telemetry-label">ESTADO DE HOJA DE RUTA</span>
+              <span class="telemetry-value">Roadmap Fase 3 Activa</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">RETORNO DE INVERSIÓN</span>
+              <span class="telemetry-value" style="color:var(--color-primary);">340% a 12 Meses</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">PAYBACK PERIOD</span>
+              <span class="telemetry-value" style="color:#10b981;">4.2 Meses</span>
+            </div>
+            <div class="telemetry-log-box">
+              💼 Roadmap listo para evaluación
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: COMPUTER VISION -->
+  <section id="blueprint-vision" class="blueprint-hero">
+    <div class="blueprint-spotlight"></div>
+    <div class="blueprint-container">
+      <div class="blueprint-header">
+        <span class="blueprint-tag">INTERACTIVE BLUEPRINT 07</span>
+        <h2 class="blueprint-title">Computer Vision</h2>
+        <p class="blueprint-subtitle">Inspección & Análisis Visual Industrial: Bounding Boxes + Detección de Objetos + Precisión 98%</p>
+      </div>
+
+      <div class="blueprint-stage-grid">
+        <div class="blueprint-card">
+          <svg class="blueprint-svg" viewBox="0 0 700 240">
+            <!-- Camera Viewport Frame -->
+            <rect class="bp-box" x="80" y="20" width="540" height="200" rx="12" style="stroke-dasharray: 6,6;" />
+
+            <!-- Industrial Item Outline Wireframe -->
+            <path class="bp-line" d="M 220 120 L 300 70 L 480 70 L 500 120 L 440 180 L 250 180 Z" style="stroke-width:2px;" />
+
+            <!-- Target Bounding Box 1 -->
+            <g transform="translate(240, 60)">
+              <rect class="cv-bounding-box" x="0" y="0" width="100" height="70" rx="4" />
+              <text class="bp-label" x="8" y="18" style="fill:var(--color-primary); font-weight:700;">□ DET_01 98% OK</text>
+              <circle class="bp-node bp-node-active" cx="50" cy="35" r="4" />
+            </g>
+
+            <!-- Target Bounding Box 2 -->
+            <g transform="translate(390, 100)">
+              <rect class="cv-bounding-box" x="0" y="0" width="110" height="75" rx="4" />
+              <text class="bp-label" x="8" y="18" style="fill:#10b981; font-weight:700;">□ DET_02 99% OK</text>
+              <circle class="bp-node bp-node-active" cx="55" cy="37" r="4" style="fill:#10b981; stroke:#10b981;" />
+            </g>
+
+            <!-- Camera Target Reticle -->
+            <circle class="bp-line" cx="350" cy="120" r="30" style="stroke:rgba(0,10,156,0.3); stroke-dasharray:4,4;" />
+          </svg>
+        </div>
+
+        <!-- Telemetry Panel -->
+        <div class="telemetry-panel">
+          <div class="telemetry-header">
+            <span class="telemetry-title">TELEMETRÍA VISION AI</span>
+            <span class="telemetry-badge"><span class="telemetry-badge-dot"></span> INSPECTING</span>
+          </div>
+
+          <div class="telemetry-body">
+            <div class="telemetry-metric">
+              <span class="telemetry-label">OBJETOS DETECTADOS</span>
+              <span class="telemetry-value">12 Elementos</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">PRECISIÓN DE DETECCIÓN</span>
+              <span class="telemetry-value" style="color:#10b981;">98.4% OK</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">TIEMPO DE PROCESAMIENTO</span>
+              <span class="telemetry-value" style="color:var(--color-primary);">24 ms (Real-Time)</span>
+            </div>
+            <div class="telemetry-log-box">
+              👁️ Cámara lista para detección
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: REALIDAD VIRTUAL Y AR -->
+  <section id="blueprint-vr" class="blueprint-hero">
+    <div class="blueprint-spotlight"></div>
+    <div class="blueprint-container">
+      <div class="blueprint-header">
+        <span class="blueprint-tag">INTERACTIVE BLUEPRINT 08</span>
+        <h2 class="blueprint-title">Realidad Virtual y AR</h2>
+        <p class="blueprint-subtitle">Simulación 3D Inmersiva: Wireframe Geometry + Leader Lines + Remote Assistance AR</p>
+      </div>
+
+      <div class="blueprint-stage-grid">
+        <div class="blueprint-card">
+          <svg class="blueprint-svg" viewBox="0 0 700 240">
+            <!-- 3D Isometric Wireframe Geometry Model -->
+            <g class="vr-wireframe-model" transform="translate(350, 120)">
+              <!-- Cube Front Face -->
+              <polygon class="bp-box" points="-60,-40 20,-60 80,-20 0,0" style="fill:rgba(0,10,156,0.03);" />
+              <polygon class="bp-box" points="-60,-40 0,0 0,60 -60,20" style="fill:rgba(0,10,156,0.05);" />
+              <polygon class="bp-box" points="0,0 80,-20 80,40 0,60" style="fill:rgba(0,10,156,0.02);" />
+
+              <!-- Outer Nodes -->
+              <circle class="bp-node bp-node-active" cx="-60" cy="-40" r="5" />
+              <circle class="bp-node bp-node-active" cx="20" cy="-60" r="5" />
+              <circle class="bp-node bp-node-active" cx="80" cy="-20" r="5" />
+              <circle class="bp-node bp-node-active" cx="0" cy="0" r="6" />
+            </g>
+
+            <!-- Leader Annotation Lines -->
+            <path class="bp-line" d="M 290 80 L 140 50" />
+            <path class="bp-line" d="M 290 140 L 140 190" />
+            <path class="bp-line" d="M 430 100 L 560 50" />
+            <path class="bp-line" d="M 350 120 L 560 190" />
+
+            <!-- Labels -->
+            <g transform="translate(140, 50)">
+              <rect class="bp-box" x="-45" y="-16" width="90" height="32" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Motor</text>
+            </g>
+            <g transform="translate(140, 190)">
+              <rect class="bp-box" x="-45" y="-16" width="90" height="32" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Sensor</text>
+            </g>
+            <g transform="translate(560, 50)">
+              <rect class="bp-box" x="-50" y="-16" width="100" height="32" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Componente</text>
+            </g>
+            <g transform="translate(560, 190)">
+              <rect class="bp-box" x="-55" y="-16" width="110" height="32" />
+              <text class="bp-label" x="0" y="4" text-anchor="middle">Manual Digital</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Telemetry Panel -->
+        <div class="telemetry-panel">
+          <div class="telemetry-header">
+            <span class="telemetry-title">TELEMETRÍA VR / AR</span>
+            <span class="telemetry-badge"><span class="telemetry-badge-dot"></span> AR ACTIVE</span>
+          </div>
+
+          <div class="telemetry-body">
+            <div class="telemetry-metric">
+              <span class="telemetry-label">ASISTENCIA REMOTA</span>
+              <span class="telemetry-value">Remote Assistance</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">ESTADO DE SESIÓN AR</span>
+              <span class="telemetry-value" style="color:var(--color-primary);">AR Session Active</span>
+            </div>
+            <div class="telemetry-metric">
+              <span class="telemetry-label">MODELO 3D CARGADO</span>
+              <span class="telemetry-value" style="color:#10b981;">3D Loaded (42k tris)</span>
+            </div>
+            <div class="telemetry-log-box">
+              🥽 Entorno 3D/AR en espera
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo-link">
+            <span class="logo-icon"></span>
+            <span style="color:#FFFFFF;">drapiar <span style="color: var(--color-secondary);">IT</span></span>
+          </a>
+          <p class="footer-desc">Integración tecnológica empresarial orientada a convertir retos operativos en ventajas competitivas duraderas.</p>
+        </div>
+        
+        <div class="footer-links">
+          <h4 class="footer-title">Soluciones</h4>
+          <ul>
+            <li><a href="soluciones/hiperautomatizacion-rpa.html">Hiperautomatización y RPA</a></li>
+            <li><a href="soluciones/ia-agentica.html">IA e IA Agéntica</a></li>
+            <li><a href="soluciones/bpm-low-code.html">BPM y Low-Code</a></li>
+            <li><a href="soluciones/desarrollo-de-software.html">Desarrollo de Software</a></li>
+            <li><a href="soluciones/aplicaciones-moviles.html">Aplicaciones Móviles</a></li>
+            <li><a href="soluciones/consultoria-especializada.html">Consultoría Especializada</a></li>
+            <li><a href="soluciones/computer-vision.html">Computer Vision</a></li>
+            <li><a href="soluciones/realidad-virtual-aumentada.html">Realidad Virtual y AR</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h4 class="footer-title">Navegación</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="index2.html">Blueprints</a></li>
+            <li><a href="industrias.html">Industrias</a></li>
+            <li><a href="casos.html">Casos de éxito</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="recursos.html">Recursos</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h4 class="footer-title">Contacto</h4>
+          <div class="footer-contact-item">
+            <span class="contact-icon">&#9993;</span>
+            <div>
+              <p style="font-weight: 600; color: var(--text-main);">Escríbenos</p>
+              <p>contacto@drapiar.it</p>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="contact-icon">&#9743;</span>
+            <div>
+              <p style="font-weight: 600; color: var(--text-main);">Llámanos</p>
+              <p>+52 (55) 8421 9540</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 drapiar IT. Todos los derechos reservados.</p>
+        <div class="footer-legal-links">
+          <a href="#">Aviso de privacidad</a>
+          <a href="#">Términos y condiciones</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Contact Modal -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-box">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <h3 class="modal-title">Agenda una consultoría</h3>
+      <p class="modal-desc text-muted">Cuéntanos sobre tu proyecto y uno de nuestros arquitectos de soluciones se pondrá en contacto contigo.</p>
+      
+      <form id="modalForm" class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="modalName">Nombre completo *</label>
+          <input type="text" id="modalName" name="name" class="form-control" placeholder="Ej. Roberto Gómez" required>
+          <div class="form-error-msg"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalCompany">Empresa *</label>
+          <input type="text" id="modalCompany" name="company" class="form-control" placeholder="Ej. Drapiar S.A." required>
+          <div class="form-error-msg"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalRole">Cargo *</label>
+          <input type="text" id="modalRole" name="role" class="form-control" placeholder="Ej. Director de Operaciones" required>
+          <div class="form-error-msg"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalEmail">Correo corporativo *</label>
+          <input type="email" id="modalEmail" name="email" class="form-control" placeholder="Ej. dgomez@empresa.com" required>
+          <div class="form-error-msg"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalPhone">Teléfono *</label>
+          <input type="tel" id="modalPhone" name="phone" class="form-control" placeholder="Ej. +52 55 1234 5678" required>
+          <div class="form-error-msg"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalInterest">Unidad de negocio de interés *</label>
+          <select id="modalInterest" name="interest" class="form-control" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="rpa">Hiperautomatización y RPA</option>
+            <option value="ia">Inteligencia Artificial e IA Agéntica</option>
+            <option value="bpm">BPM y Low-Code</option>
+            <option value="dev">Desarrollo de Software</option>
+            <option value="mobile">Aplicaciones Móviles</option>
+            <option value="consulting">Consultoría Especializada</option>
+            <option value="vision">Computer Vision</option>
+            <option value="vr-ar">Realidad Virtual y Aumentada</option>
+          </select>
+          <div class="form-error-msg"></div>
+        </div>
+        <div class="form-group form-group-full">
+          <label class="form-label" for="modalChallenge">Describe brevemente tu reto *</label>
+          <textarea id="modalChallenge" name="challenge" class="form-control" placeholder="Cuéntanos cuál es el reto principal que buscas resolver..." required></textarea>
+          <div class="form-error-msg"></div>
+        </div>
+        <div class="form-group form-group-full form-submit-container">
+          <button type="submit" class="btn btn-primary">Solicitar consultoría especializada</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js?v=1.0.7"></script>
+  <script src="js/blueprints.js?v=1.0.0"></script>
+</body>
+</html>

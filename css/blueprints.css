@@ -1,0 +1,403 @@
+/* ==========================================
+   BLUEPRINTS.CSS - Interactive Technology Blueprints
+   Drapiar IT SaaS Blueprint Architecture
+   ========================================== */
+
+/* Blueprint Hero Layout & Technical Grid Background */
+.blueprint-hero {
+  position: relative;
+  min-height: 85vh;
+  padding: 100px 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 10, 156, 0.1);
+  overflow: hidden;
+  background-color: var(--bg-main, #FFFFFF);
+  background-image: 
+    linear-gradient(rgba(0, 10, 156, 0.025) 1px, transparent 1px), 
+    linear-gradient(90deg, rgba(0, 10, 156, 0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Mouse Spotlight Layer */
+.blueprint-spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 10, 156, 0.06),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  z-index: 1;
+}
+
+.blueprint-hero:hover .blueprint-spotlight {
+  opacity: 1;
+}
+
+/* Container & Header */
+.blueprint-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.blueprint-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 48px;
+}
+
+.blueprint-tag {
+  display: inline-block;
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-primary, rgb(0, 10, 156));
+  background: rgba(0, 10, 156, 0.06);
+  border: 1px solid rgba(0, 10, 156, 0.15);
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.blueprint-title {
+  font-family: var(--font-heading, 'Space Mono', monospace);
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 700;
+  color: var(--text-main, #111111);
+  line-height: 1.3;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.blueprint-subtitle {
+  font-family: var(--font-body, 'Space Mono', monospace);
+  font-size: 15px;
+  color: var(--text-muted, #5F6368);
+  line-height: 1.6;
+}
+
+/* Main Grid Layout: Interactive Stage + Telemetry Panel */
+.blueprint-stage-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 32px;
+  align-items: stretch;
+}
+
+@media (max-width: 992px) {
+  .blueprint-stage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card / Frame Canvas Container */
+.blueprint-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 10, 156, 0.12);
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 8px 30px rgba(0, 10, 156, 0.03);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 380px;
+}
+
+.blueprint-hero:hover .blueprint-card {
+  border-color: rgba(0, 10, 156, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 10, 156, 0.06);
+}
+
+/* SVG Blueprint Styles */
+.blueprint-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  overflow: visible;
+}
+
+/* SVG Lines */
+.bp-line {
+  stroke: rgba(0, 10, 156, 0.12);
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  transition: stroke 0.5s ease-out, stroke-width 0.5s ease-out;
+}
+
+.blueprint-card:hover .bp-line {
+  stroke: rgba(0, 10, 156, 0.28);
+}
+
+.bp-line-active {
+  stroke: rgb(0, 10, 156) !important;
+  stroke-width: 2px !important;
+}
+
+/* SVG Animated Pulse Line Overlay */
+.bp-path-pulse {
+  stroke: rgb(0, 10, 156);
+  stroke-width: 2px;
+  fill: none;
+  stroke-dasharray: 20, 300;
+  stroke-dashoffset: 320;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.blueprint-card:hover .bp-path-pulse {
+  opacity: 1;
+  animation: bpFlowPulse 2.2s linear infinite;
+}
+
+@keyframes bpFlowPulse {
+  0% { stroke-dashoffset: 320; }
+  100% { stroke-dashoffset: -320; }
+}
+
+/* SVG Circular Nodes */
+.bp-node {
+  fill: #FFFFFF;
+  stroke: rgba(0, 10, 156, 0.3);
+  stroke-width: 1.5px;
+  r: 6px;
+  transition: transform 0.4s ease, fill 0.4s ease, stroke 0.4s ease, r 0.4s ease;
+  transform-origin: center;
+}
+
+.blueprint-card:hover .bp-node {
+  stroke: rgb(0, 10, 156);
+}
+
+.bp-node-active {
+  fill: rgb(0, 10, 156) !important;
+  stroke: rgb(0, 10, 156) !important;
+  r: 7.5px !important;
+  animation: bpNodePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes bpNodePulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(0,10,156,0.3)); }
+  50% { transform: scale(1.25); filter: drop-shadow(0 0 6px rgba(0,10,156,0.6)); }
+}
+
+/* SVG Text Labels & Box Outlines */
+.bp-label {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 11.5px;
+  font-weight: 700;
+  fill: #5F6368;
+  transition: fill 0.4s ease;
+}
+
+.blueprint-card:hover .bp-label {
+  fill: #111111;
+}
+
+.bp-box {
+  fill: #FFFFFF;
+  stroke: rgba(0, 10, 156, 0.15);
+  stroke-width: 1.5px;
+  rx: 8px;
+  transition: stroke 0.4s ease, fill 0.4s ease, transform 0.4s ease;
+}
+
+.blueprint-card:hover .bp-box {
+  stroke: rgba(0, 10, 156, 0.4);
+}
+
+.bp-box-active {
+  stroke: rgb(0, 10, 156) !important;
+  fill: rgba(0, 10, 156, 0.03) !important;
+}
+
+/* Telemetry Floating Panel */
+.telemetry-panel {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 10, 156, 0.12);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 8px 30px rgba(0, 10, 156, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.blueprint-hero:hover .telemetry-panel {
+  border-color: rgba(0, 10, 156, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 10, 156, 0.06);
+}
+
+.telemetry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed rgba(0, 10, 156, 0.15);
+  margin-bottom: 20px;
+}
+
+.telemetry-title {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted, #5F6368);
+}
+
+.telemetry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.telemetry-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+  animation: blinkDot 1.5s infinite;
+}
+
+@keyframes blinkDot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.telemetry-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.telemetry-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.telemetry-label {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 11px;
+  color: var(--text-dim, #9AA0A6);
+  text-transform: uppercase;
+}
+
+.telemetry-value {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main, #111111);
+  transition: color 0.3s ease;
+}
+
+.blueprint-hero:hover .telemetry-value {
+  color: var(--color-primary, rgb(0, 10, 156));
+}
+
+.telemetry-log-box {
+  background: rgba(0, 10, 156, 0.02);
+  border: 1px solid rgba(0, 10, 156, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 11.5px;
+  color: var(--color-primary, rgb(0, 10, 156));
+  line-height: 1.5;
+  margin-top: 12px;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+/* Quick Nav Sticky Bar */
+.blueprint-nav-bar {
+  position: sticky;
+  top: 80px;
+  z-index: 90;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0, 10, 156, 0.12);
+  padding: 12px 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.blueprint-nav-container {
+  display: flex;
+  gap: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.blueprint-nav-item {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted, #5F6368);
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.blueprint-nav-item:hover,
+.blueprint-nav-item.active {
+  color: var(--color-primary, rgb(0, 10, 156));
+  background: rgba(0, 10, 156, 0.06);
+  border-color: rgba(0, 10, 156, 0.15);
+}
+
+/* Custom Bounding Box Brackets for Computer Vision */
+.cv-bounding-box {
+  stroke: rgba(0, 10, 156, 0.3);
+  stroke-width: 1.5px;
+  fill: rgba(0, 10, 156, 0.02);
+  transition: stroke 0.4s ease, fill 0.4s ease;
+}
+
+.blueprint-card:hover .cv-bounding-box {
+  stroke: rgb(0, 10, 156);
+  fill: rgba(0, 10, 156, 0.06);
+}
+
+/* 3D Wireframe Rotation Transition */
+.vr-wireframe-model {
+  transform-origin: center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blueprint-card:hover .vr-wireframe-model {
+  transform: rotate(15deg) scale(1.04);
+}
