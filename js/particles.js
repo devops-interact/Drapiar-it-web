@@ -1,6 +1,6 @@
 /**
- * particles.js - Interactive ASCII Matrix Canvas Animation + Image Sampling
- * DrapiarIT SaaS Premium Design - Font CELL size 13px
+ * particles.js - Interactive ASCII Matrix Canvas Animation + Enhanced Image Sampling
+ * DrapiarIT SaaS Premium Design
  */
 
 (function () {
@@ -8,7 +8,7 @@
 
   const CANVAS_ID = 'heroCanvas';
   const RAMP = ' .:-=+*#%@';
-  const CELL = 13; // Larger ASCII character cell size as requested
+  const CELL = 11; // 11px for crisp detail resolution
 
   let canvas, ctx;
   let animationFrameId = null;
@@ -65,7 +65,7 @@
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
-    ctx.font = `${CELL}px "Space Mono", monospace`;
+    ctx.font = `bold ${CELL}px "Space Mono", monospace`;
     ctx.textBaseline = 'top';
 
     if (img) sampleImage();
@@ -110,7 +110,7 @@
     mouseX += (targetMouseX - mouseX) * 0.15;
     mouseY += (targetMouseY - mouseY) * 0.15;
 
-    ctx.fillStyle = '#0a0a0a';
+    ctx.fillStyle = '#050811';
     ctx.fillRect(0, 0, width, height);
 
     for (let row = 0; row < rows; row++) {
@@ -123,34 +123,38 @@
         const dist = Math.sqrt(dx * dx + dy * dy);
         const ripple = Math.max(0, 1 - dist / 280);
 
-        let r = 200, g = 200, b = 200, brightness01;
+        let r = 120, g = 160, b = 255, brightness01;
 
         if (imgData) {
           const idx = (row * cols + col) * 4;
           r = imgData[idx];
           g = imgData[idx + 1];
           b = imgData[idx + 2];
-          brightness01 = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
+          const rawLum = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
+          // Gamma contrast boost so background image shapes pop out vividly
+          brightness01 = Math.pow(rawLum, 0.6) * 1.4;
+          brightness01 = Math.min(1, Math.max(0, brightness01));
         } else {
           brightness01 = (noise(col, row, time) + 1) / 2;
         }
 
-        let intensity = brightness01 * 0.85 + ripple * 0.6;
-        intensity = Math.min(1, intensity);
+        let intensity = brightness01 * 0.85 + ripple * 0.55;
+        intensity = Math.min(1, Math.max(0, intensity));
 
-        if (intensity < 0.03) continue;
+        if (intensity < 0.04) continue;
 
         const charIndex = Math.floor(intensity * (RAMP.length - 1));
         const char = RAMP[charIndex];
 
         if (imgData) {
-          const boost = 1 + ripple * 0.8;
-          const cr = Math.min(255, r * boost);
-          const cg = Math.min(255, g * boost);
-          const cb = Math.min(255, b * boost);
+          const boost = 1.3 + ripple * 0.9;
+          // Ensure vivid high-contrast blue/cyan/white ASCII characters for clear image visibility
+          const cr = Math.min(255, Math.max(60, Math.floor(r * boost)));
+          const cg = Math.min(255, Math.max(110, Math.floor(g * boost)));
+          const cb = Math.min(255, Math.max(200, Math.floor(b * boost)));
           ctx.fillStyle = `rgb(${cr}, ${cg}, ${cb})`;
         } else {
-          const brightness = Math.floor(60 + intensity * 195);
+          const brightness = Math.floor(70 + intensity * 185);
           ctx.fillStyle = `rgb(${brightness}, ${brightness}, ${brightness})`;
         }
 
