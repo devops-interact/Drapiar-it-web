@@ -1,14 +1,15 @@
 /**
- * particles.js - Interactive ASCII Matrix Canvas Animation + Image Converter
- * DrapiarIT SaaS Premium Design
+ * particles.js - Halftone Dot Matrix Canvas Shader + Interactive Mouse Ripple
+ * DrapiarIT SaaS Premium Design - Electric Blue Halftone Vector Grid
  */
 
 (function () {
   'use strict';
 
   const CANVAS_ID = 'heroCanvas';
-  const RAMP = ' .:-=+*#%@';
-  const CELL = 11;
+  const SPACING = 14;     // Distance in px between dot centers
+  const MIN_RADIUS = 1.2; // Minimum dot radius
+  const MAX_RADIUS = 6.0; // Maximum dot radius
 
   let canvas, ctx;
   let animationFrameId = null;
@@ -60,13 +61,11 @@
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    cols = Math.ceil(width / CELL);
-    rows = Math.ceil(height / CELL);
+    cols = Math.ceil(width / SPACING);
+    rows = Math.ceil(height / SPACING);
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
-    ctx.font = `${CELL}px "Space Mono", monospace`;
-    ctx.textBaseline = 'top';
 
     if (img) sampleImage();
   }
@@ -96,79 +95,59 @@
     imgData = sampleCtx.getImageData(0, 0, cols, rows).data;
   }
 
-  function loadImageFile(file) {
-    if (!file || !file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const image = new Image();
-      image.onload = () => {
-        img = image;
-        sampleImage();
-      };
-      image.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function noise(x, y, t) {
-    return (
-      Math.sin(x * 0.15 + t) +
-      Math.sin(y * 0.12 - t * 0.8) +
-      Math.sin((x + y) * 0.08 + t * 0.5)
-    ) / 3;
+  function noiseTerrain(col, row, t) {
+    // Multi-octave wave superposition for terrain / ridge contours
+    const wave1 = Math.sin(col * 0.07 + t * 0.5) * Math.cos(row * 0.08 + t * 0.4);
+    const wave2 = Math.sin((col + row) * 0.05 - t * 0.6);
+    const wave3 = Math.cos(col * 0.11 - row * 0.09 + t * 0.7);
+    return (wave1 + wave2 + wave3) / 3;
   }
 
   function renderFrame() {
-    time += 0.015;
+    time += 0.012;
 
+    // Smooth mouse lerp
     mouseX += (targetMouseX - mouseX) * 0.15;
     mouseY += (targetMouseY - mouseY) * 0.15;
 
-    ctx.clearRect(0, 0, width, height);
+    // Electric Brand Blue Background fill (matching reference image)
+    ctx.fillStyle = '#004BF6';
+    ctx.fillRect(0, 0, width, height);
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        const px = col * CELL;
-        const py = row * CELL;
+        const px = col * SPACING + SPACING / 2;
+        const py = row * SPACING + SPACING / 2;
 
         const dx = px - mouseX;
         const dy = py - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const ripple = Math.max(0, 1 - dist / 280);
+        const mouseRipple = Math.max(0, 1 - dist / 300); // 300px ripple radius
 
-        let r = 0, g = 10, b = 156, brightness01;
+        let baseBrightness = 0.5;
 
         if (imgData) {
           const idx = (row * cols + col) * 4;
-          r = imgData[idx];
-          g = imgData[idx + 1];
-          b = imgData[idx + 2];
-          brightness01 = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
+          const r = imgData[idx];
+          const g = imgData[idx + 1];
+          const b = imgData[idx + 2];
+          baseBrightness = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
         } else {
-          brightness01 = (noise(col, row, time) + 1) / 2;
+          baseBrightness = (noiseTerrain(col, row, time) + 1) / 2;
         }
 
-        let intensity = brightness01 * 0.65 + ripple * 0.75;
-        intensity = Math.min(1, intensity);
+        let intensity = baseBrightness * 0.65 + mouseRipple * 0.65;
+        intensity = Math.min(1, Math.max(0, intensity));
 
-        if (intensity < 0.04) continue;
+        // Calculate dot radius and opacity
+        const radius = MIN_RADIUS + intensity * (MAX_RADIUS - MIN_RADIUS);
+        const alpha = 0.3 + intensity * 0.7;
 
-        const charIndex = Math.floor(intensity * (RAMP.length - 1));
-        const char = RAMP[charIndex];
-
-        if (imgData) {
-          const boost = 1 + ripple * 0.8;
-          const cr = Math.min(255, r * boost);
-          const cg = Math.min(255, g * boost);
-          const cb = Math.min(255, b * boost);
-          ctx.fillStyle = `rgb(${cr}, ${cg}, ${cb})`;
-        } else {
-          // Brand Primary Blue tint (rgb(0, 10, 156)) with dynamic opacity
-          const opacity = 0.04 + intensity * 0.35 + ripple * 0.45;
-          ctx.fillStyle = `rgba(0, 10, 156, ${opacity.toFixed(3)})`;
-        }
-
-        ctx.fillText(char, px, py);
+        // Draw crisp white halftone circle dot
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(px, py, radius, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
   }
@@ -198,7 +177,7 @@
     animate();
   }
 
-  // Mouse & Drag events
+  // Mouse Interactivity
   window.addEventListener('mousemove', (e) => {
     if (!canvas) return;
     const hero = document.querySelector('.hero') || canvas;
@@ -219,24 +198,6 @@
     targetMouseX = -9999;
     targetMouseY = -9999;
   });
-
-  window.addEventListener('dragover', (e) => e.preventDefault());
-  window.addEventListener('drop', (e) => {
-    e.preventDefault();
-    if (e.dataTransfer && e.dataTransfer.files[0]) {
-      loadImageFile(e.dataTransfer.files[0]);
-    }
-  });
-
-  const fileInput = document.getElementById('file-input');
-  const uploadBtn = document.getElementById('upload-btn');
-
-  if (uploadBtn && fileInput) {
-    uploadBtn.addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files[0]) loadImageFile(e.target.files[0]);
-    });
-  }
 
   if (document.readyState === 'loading') {
     window.addEventListener('DOMContentLoaded', start);
