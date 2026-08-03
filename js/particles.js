@@ -1,15 +1,14 @@
 /**
- * particles.js - Halftone Dot Matrix Canvas Shader + Interactive Mouse Ripple
- * DrapiarIT SaaS Premium Design - Electric Blue Halftone Vector Grid
+ * particles.js - Interactive ASCII Matrix Canvas Animation + Image Sampling
+ * DrapiarIT SaaS Premium Design - Font CELL size 13px
  */
 
 (function () {
   'use strict';
 
   const CANVAS_ID = 'heroCanvas';
-  const SPACING = 14;     // Distance in px between dot centers
-  const MIN_RADIUS = 1.2; // Minimum dot radius
-  const MAX_RADIUS = 6.0; // Maximum dot radius
+  const RAMP = ' .:-=+*#%@';
+  const CELL = 13; // Larger ASCII character cell size as requested
 
   let canvas, ctx;
   let animationFrameId = null;
@@ -61,11 +60,13 @@
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    cols = Math.ceil(width / SPACING);
-    rows = Math.ceil(height / SPACING);
+    cols = Math.ceil(width / CELL);
+    rows = Math.ceil(height / CELL);
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
+    ctx.font = `${CELL}px "Space Mono", monospace`;
+    ctx.textBaseline = 'top';
 
     if (img) sampleImage();
   }
@@ -95,59 +96,65 @@
     imgData = sampleCtx.getImageData(0, 0, cols, rows).data;
   }
 
-  function noiseTerrain(col, row, t) {
-    // Multi-octave wave superposition for terrain / ridge contours
-    const wave1 = Math.sin(col * 0.07 + t * 0.5) * Math.cos(row * 0.08 + t * 0.4);
-    const wave2 = Math.sin((col + row) * 0.05 - t * 0.6);
-    const wave3 = Math.cos(col * 0.11 - row * 0.09 + t * 0.7);
-    return (wave1 + wave2 + wave3) / 3;
+  function noise(x, y, t) {
+    return (
+      Math.sin(x * 0.15 + t) +
+      Math.sin(y * 0.12 - t * 0.8) +
+      Math.sin((x + y) * 0.08 + t * 0.5)
+    ) / 3;
   }
 
   function renderFrame() {
-    time += 0.012;
+    time += 0.015;
 
-    // Smooth mouse lerp
     mouseX += (targetMouseX - mouseX) * 0.15;
     mouseY += (targetMouseY - mouseY) * 0.15;
 
-    // Electric Brand Blue Background fill (matching reference image)
-    ctx.fillStyle = '#004BF6';
+    ctx.fillStyle = '#0a0a0a';
     ctx.fillRect(0, 0, width, height);
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        const px = col * SPACING + SPACING / 2;
-        const py = row * SPACING + SPACING / 2;
+        const px = col * CELL;
+        const py = row * CELL;
 
         const dx = px - mouseX;
         const dy = py - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const mouseRipple = Math.max(0, 1 - dist / 300); // 300px ripple radius
+        const ripple = Math.max(0, 1 - dist / 280);
 
-        let baseBrightness = 0.5;
+        let r = 200, g = 200, b = 200, brightness01;
 
         if (imgData) {
           const idx = (row * cols + col) * 4;
-          const r = imgData[idx];
-          const g = imgData[idx + 1];
-          const b = imgData[idx + 2];
-          baseBrightness = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
+          r = imgData[idx];
+          g = imgData[idx + 1];
+          b = imgData[idx + 2];
+          brightness01 = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
         } else {
-          baseBrightness = (noiseTerrain(col, row, time) + 1) / 2;
+          brightness01 = (noise(col, row, time) + 1) / 2;
         }
 
-        let intensity = baseBrightness * 0.65 + mouseRipple * 0.65;
-        intensity = Math.min(1, Math.max(0, intensity));
+        let intensity = brightness01 * 0.85 + ripple * 0.6;
+        intensity = Math.min(1, intensity);
 
-        // Calculate dot radius and opacity
-        const radius = MIN_RADIUS + intensity * (MAX_RADIUS - MIN_RADIUS);
-        const alpha = 0.3 + intensity * 0.7;
+        if (intensity < 0.03) continue;
 
-        // Draw crisp white halftone circle dot
-        ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
-        ctx.beginPath();
-        ctx.arc(px, py, radius, 0, Math.PI * 2);
-        ctx.fill();
+        const charIndex = Math.floor(intensity * (RAMP.length - 1));
+        const char = RAMP[charIndex];
+
+        if (imgData) {
+          const boost = 1 + ripple * 0.8;
+          const cr = Math.min(255, r * boost);
+          const cg = Math.min(255, g * boost);
+          const cb = Math.min(255, b * boost);
+          ctx.fillStyle = `rgb(${cr}, ${cg}, ${cb})`;
+        } else {
+          const brightness = Math.floor(60 + intensity * 195);
+          ctx.fillStyle = `rgb(${brightness}, ${brightness}, ${brightness})`;
+        }
+
+        ctx.fillText(char, px, py);
       }
     }
   }
@@ -177,7 +184,7 @@
     animate();
   }
 
-  // Mouse Interactivity
+  // Mouse & Drag events
   window.addEventListener('mousemove', (e) => {
     if (!canvas) return;
     const hero = document.querySelector('.hero') || canvas;

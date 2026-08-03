@@ -1632,43 +1632,43 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   min-height: 640px;
   position: relative;
   overflow: hidden;
-  background: #004BF6;
+  background: #0a0a0a;
 }
 
 .hero .hero-title {
   color: #FFFFFF;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
 }
 
 .hero .text-gradient {
-  background: linear-gradient(135deg, #FFFFFF 0%, #C4DCFF 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #60A5FA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .hero .hero-copy {
-  color: rgba(255, 255, 255, 0.94);
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
 }
 
 .hero .hero-tag {
   color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(8px);
 }
 
 .hero .btn-primary {
-  background: #FFFFFF;
-  color: #004BF6;
-  border-color: #FFFFFF;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
   font-weight: 700;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 10, 156, 0.35);
 }
 
 .hero .btn-primary:hover {
-  background: rgba(255, 255, 255, 0.92);
-  color: #0037BD;
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
   transform: translateY(-2px);
 }
 
@@ -2988,7 +2988,7 @@ section, div[id] {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--text-main);
+  color: var(--color-primary, rgb(0, 10, 156));
   margin-bottom: 40px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border-light);
@@ -3258,4 +3258,21 @@ section, div[id] {
   .case-card-detail, .case-card-detail.reverse {
     grid-template-columns: 1fr !important;
   }
+}
+
+/* Animated Industry SVG Icons */
+.industry-card-icon-svg {
+  width: 44px;
+  height: 44px;
+  stroke: var(--color-primary, rgb(0, 10, 156));
+  stroke-width: 1.6;
+  fill: none;
+  margin-bottom: 20px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), stroke 0.4s ease, filter 0.4s ease;
+}
+
+.industry-card:hover .industry-card-icon-svg {
+  transform: translateY(-6px) scale(1.15);
+  stroke: var(--color-primary-hover, #001399);
+  filter: drop-shadow(0 6px 12px rgba(0, 10, 156, 0.25));
 }
