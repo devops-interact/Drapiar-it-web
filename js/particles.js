@@ -33,6 +33,16 @@
 
     ctx = canvas.getContext('2d');
     resizeCanvas();
+
+    // Auto-load hero background image from images/hero/ directory
+    const heroSrc = canvas.getAttribute('data-hero-image') || 'images/hero/hero-main.png';
+    const autoImg = new Image();
+    autoImg.onload = () => {
+      img = autoImg;
+      sampleImage();
+    };
+    autoImg.src = heroSrc;
+
     return true;
   }
 
