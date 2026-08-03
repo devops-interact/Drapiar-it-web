@@ -1,5 +1,5 @@
 /**
- * particles.js - Constellation Field Canvas Animation + Interactive Mouse Laser Hover
+ * particles.js - Interactive ASCII Matrix Canvas Animation + Image Converter
  * DrapiarIT SaaS Premium Design
  */
 
@@ -7,69 +7,32 @@
   'use strict';
 
   const CANVAS_ID = 'heroCanvas';
-  const NUM_PARTICLES = 160;
-  const SPEED = 0.7;
-
-  const TAGS = ['OBJ_0.98', 'DET_0.94', 'NODE_A1', 'TRK_0.96', 'SYS_0.92', 'CV_0.99', 'CAM_0.95'];
+  const RAMP = ' .:-=+*#%@';
+  const CELL = 11;
 
   let canvas, ctx;
   let animationFrameId = null;
-  let particles = [];
-  let width = 0;
-  let height = 0;
+  let cols = 0, rows = 0;
+  let width = 0, height = 0;
   let dpr = 1;
-  let mouse = { x: -1000, y: -1000, active: false };
 
-  class Vector {
-    constructor(x = 0, y = 0) {
-      this.x = x;
-      this.y = y;
-    }
+  let mouseX = -9999, mouseY = -9999;
+  let targetMouseX = -9999, targetMouseY = -9999;
+  let time = 0;
 
-    add(v) {
-      this.x += v.x;
-      this.y += v.y;
-      return this;
-    }
-  }
+  // Offscreen sampling canvas for image pixel reading
+  const sampleCanvas = document.createElement('canvas');
+  const sampleCtx = sampleCanvas.getContext('2d', { willReadFrequently: true });
 
-  class Particle {
-    constructor(x, y, index) {
-      this.position = new Vector(x, y);
-      const angle = Math.random() * Math.PI * 2;
-      const spd = (Math.random() * 0.6 + 0.3) * SPEED;
-      this.velocity = new Vector(Math.cos(angle) * spd, Math.sin(angle) * spd);
-      this.isCVTarget = index % 45 === 0;
-      this.tagLabel = TAGS[index % TAGS.length];
-      this.radius = 2.2;
-    }
-
-    update() {
-      this.position.add(this.velocity);
-
-      // Screen edge wrapping for uniform coverage across full hero
-      if (this.position.x < -15) this.position.x = width + 15;
-      if (this.position.x > width + 15) this.position.x = -15;
-      if (this.position.y < -15) this.position.y = height + 15;
-      if (this.position.y > height + 15) this.position.y = -15;
-    }
-  }
+  let img = null;
+  let imgData = null;
 
   function initCanvas() {
-    canvas = document.getElementById(CANVAS_ID);
+    canvas = document.getElementById(CANVAS_ID) || document.getElementById('ascii-bg');
     if (!canvas) return false;
 
     ctx = canvas.getContext('2d');
     resizeCanvas();
-
-    // Create particles evenly distributed across full hero dimensions
-    particles = [];
-    for (let i = 0; i < NUM_PARTICLES; i++) {
-      const x = Math.random() * width;
-      const y = Math.random() * height;
-      particles.push(new Particle(x, y, i));
-    }
-
     return true;
   }
 
@@ -78,7 +41,7 @@
     const hero = document.querySelector('.hero') || canvas.parentElement;
     const rect = hero ? hero.getBoundingClientRect() : canvas.getBoundingClientRect();
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    
+
     width = rect.width || window.innerWidth;
     height = rect.height || 640;
 
@@ -87,94 +50,115 @@
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    // CRITICAL: Reset matrix to prevent scaling accumulation
+    cols = Math.ceil(width / CELL);
+    rows = Math.ceil(height / CELL);
+
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
+    ctx.font = `${CELL}px "Space Mono", monospace`;
+    ctx.textBaseline = 'top';
+
+    if (img) sampleImage();
   }
 
-  function drawCornerBracketBox(x, y, size = 38, bracketLen = 9, label = '', isHovered = false) {
-    const half = size / 2;
-    const left = x - half;
-    const right = x + half;
-    const top = y - half;
-    const bottom = y + half;
+  function sampleImage() {
+    if (!img) return;
+    sampleCanvas.width = cols;
+    sampleCanvas.height = rows;
 
-    ctx.save();
-    ctx.strokeStyle = isHovered ? 'rgba(0, 10, 156, 0.85)' : 'rgba(0, 10, 156, 0.22)';
-    ctx.lineWidth = isHovered ? 1.6 : 1.2;
+    const imgRatio = img.width / img.height;
+    const gridRatio = cols / rows;
+    let sx, sy, sw, sh;
 
-    // Top-Left corner
-    ctx.beginPath();
-    ctx.moveTo(left, top + bracketLen);
-    ctx.lineTo(left, top);
-    ctx.lineTo(left + bracketLen, top);
-    ctx.stroke();
-
-    // Top-Right corner
-    ctx.beginPath();
-    ctx.moveTo(right - bracketLen, top);
-    ctx.lineTo(right, top);
-    ctx.lineTo(right, top + bracketLen);
-    ctx.stroke();
-
-    // Bottom-Left corner
-    ctx.beginPath();
-    ctx.moveTo(left, bottom - bracketLen);
-    ctx.lineTo(left, bottom);
-    ctx.lineTo(left + bracketLen, bottom);
-    ctx.stroke();
-
-    // Bottom-Right corner
-    ctx.beginPath();
-    ctx.moveTo(right - bracketLen, bottom);
-    ctx.lineTo(right, bottom);
-    ctx.lineTo(right, bottom - bracketLen);
-    ctx.stroke();
-
-    // Label tag
-    if (label) {
-      ctx.font = isHovered ? '700 10px "Space Mono", monospace' : '700 9px "Space Mono", monospace';
-      ctx.fillStyle = isHovered ? 'rgba(0, 10, 156, 0.95)' : 'rgba(0, 10, 156, 0.35)';
-      ctx.fillText(label, right + 4, top + 8);
+    if (imgRatio > gridRatio) {
+      sh = img.height;
+      sw = sh * gridRatio;
+      sx = (img.width - sw) / 2;
+      sy = 0;
+    } else {
+      sw = img.width;
+      sh = sw / gridRatio;
+      sx = 0;
+      sy = (img.height - sh) / 2;
     }
 
-    ctx.restore();
+    sampleCtx.drawImage(img, sx, sy, sw, sh, 0, 0, cols, rows);
+    imgData = sampleCtx.getImageData(0, 0, cols, rows).data;
+  }
+
+  function loadImageFile(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const image = new Image();
+      image.onload = () => {
+        img = image;
+        sampleImage();
+      };
+      image.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function noise(x, y, t) {
+    return (
+      Math.sin(x * 0.15 + t) +
+      Math.sin(y * 0.12 - t * 0.8) +
+      Math.sin((x + y) * 0.08 + t * 0.5)
+    ) / 3;
   }
 
   function renderFrame() {
+    time += 0.015;
+
+    mouseX += (targetMouseX - mouseX) * 0.15;
+    mouseY += (targetMouseY - mouseY) * 0.15;
+
     ctx.clearRect(0, 0, width, height);
 
-    // Find the single closest particle to the mouse cursor
-    let closestParticle = null;
-    let minMouseDist = Infinity;
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const px = col * CELL;
+        const py = row * CELL;
 
-    if (mouse.active) {
-      for (let p of particles) {
-        const dx = p.position.x - mouse.x;
-        const dy = p.position.y - mouse.y;
+        const dx = px - mouseX;
+        const dy = py - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 130 && dist < minMouseDist) {
-          minMouseDist = dist;
-          closestParticle = p;
+        const ripple = Math.max(0, 1 - dist / 280);
+
+        let r = 0, g = 10, b = 156, brightness01;
+
+        if (imgData) {
+          const idx = (row * cols + col) * 4;
+          r = imgData[idx];
+          g = imgData[idx + 1];
+          b = imgData[idx + 2];
+          brightness01 = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
+        } else {
+          brightness01 = (noise(col, row, time) + 1) / 2;
         }
-      }
-    }
 
-    // Update & draw particles
-    for (let p of particles) {
-      p.update();
+        let intensity = brightness01 * 0.65 + ripple * 0.75;
+        intensity = Math.min(1, intensity);
 
-      const isClosest = (p === closestParticle);
+        if (intensity < 0.04) continue;
 
-      // Particle dot (highlighted on hover)
-      ctx.beginPath();
-      ctx.arc(p.position.x, p.position.y, isClosest ? 3.5 : p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = isClosest ? 'rgba(0, 10, 156, 0.95)' : 'rgba(0, 10, 156, 0.20)';
-      ctx.fill();
+        const charIndex = Math.floor(intensity * (RAMP.length - 1));
+        const char = RAMP[charIndex];
 
-      // Computer Vision Bounding Box Bracket (shows on closest particle or ambient targets)
-      if (isClosest || p.isCVTarget) {
-        drawCornerBracketBox(p.position.x, p.position.y, 38, 9, p.tagLabel, isClosest);
+        if (imgData) {
+          const boost = 1 + ripple * 0.8;
+          const cr = Math.min(255, r * boost);
+          const cg = Math.min(255, g * boost);
+          const cb = Math.min(255, b * boost);
+          ctx.fillStyle = `rgb(${cr}, ${cg}, ${cb})`;
+        } else {
+          // Brand Primary Blue tint (rgb(0, 10, 156)) with dynamic opacity
+          const opacity = 0.04 + intensity * 0.35 + ripple * 0.45;
+          ctx.fillStyle = `rgba(0, 10, 156, ${opacity.toFixed(3)})`;
+        }
+
+        ctx.fillText(char, px, py);
       }
     }
   }
@@ -192,10 +176,9 @@
   function start() {
     if (!initCanvas()) return;
 
-    // Check prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
-      renderFrame(); // Single static render
+      renderFrame();
       return;
     }
 
@@ -205,7 +188,7 @@
     animate();
   }
 
-  // Mouse Interactivity Listeners (Window Level)
+  // Mouse & Drag events
   window.addEventListener('mousemove', (e) => {
     if (!canvas) return;
     const hero = document.querySelector('.hero') || canvas;
@@ -214,19 +197,37 @@
     const clientY = e.clientY - rect.top;
 
     if (clientX >= 0 && clientX <= rect.width && clientY >= 0 && clientY <= rect.height) {
-      mouse.x = clientX;
-      mouse.y = clientY;
-      mouse.active = true;
+      targetMouseX = clientX;
+      targetMouseY = clientY;
     } else {
-      mouse.active = false;
+      targetMouseX = -9999;
+      targetMouseY = -9999;
     }
   });
 
   window.addEventListener('mouseleave', () => {
-    mouse.active = false;
+    targetMouseX = -9999;
+    targetMouseY = -9999;
   });
 
-  // Event Listeners
+  window.addEventListener('dragover', (e) => e.preventDefault());
+  window.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (e.dataTransfer && e.dataTransfer.files[0]) {
+      loadImageFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  const fileInput = document.getElementById('file-input');
+  const uploadBtn = document.getElementById('upload-btn');
+
+  if (uploadBtn && fileInput) {
+    uploadBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files[0]) loadImageFile(e.target.files[0]);
+    });
+  }
+
   if (document.readyState === 'loading') {
     window.addEventListener('DOMContentLoaded', start);
   } else {
