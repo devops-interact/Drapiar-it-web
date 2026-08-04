@@ -1771,6 +1771,13 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 36px 40px;
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid rgba(0, 10, 156, 0.12);
+  box-shadow: 0 12px 36px rgba(0, 10, 156, 0.06);
 }
 
 .hero-title {
@@ -1919,7 +1926,7 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   color: rgba(255, 255, 255, 0.85) !important;
 }
 
-/* Capacidades Cards - Technical Editorial Style */
+/* Capacidades Cards - Crisp White Cards on Blue Section */
 #unidades .grid-8 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1939,8 +1946,8 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
 }
 
 #unidades .unit-card {
-  background: #000885;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
   border-radius: var(--radius-xs, 4px);
   padding: 28px 24px;
   display: flex;
@@ -1948,26 +1955,31 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   justify-content: space-between;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #unidades .unit-card:hover {
   transform: translateY(-4px);
-  background: #000A9C;
-  border-color: #FFFFFF;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
 }
 
 #unidades .unit-icon {
   font-size: 28px;
   margin-bottom: 16px;
-  color: #FFFFFF;
+  color: var(--color-primary, rgb(0, 10, 156)) !important;
+}
+
+#unidades .unit-card:hover .unit-icon {
+  color: var(--color-primary, rgb(0, 10, 156)) !important;
 }
 
 #unidades .unit-title {
   font-family: var(--font-heading);
   font-size: 17px;
   font-weight: 700;
-  color: #FFFFFF !important;
+  color: #111111 !important;
   margin-bottom: 10px;
   letter-spacing: -0.2px;
 }
@@ -1975,7 +1987,7 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
 #unidades .unit-desc {
   font-size: 13.5px;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.8) !important;
+  color: #4B5563 !important;
   margin-bottom: 24px;
 }
 
@@ -1985,9 +1997,9 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #FFFFFF !important;
+  color: var(--color-primary, rgb(0, 10, 156)) !important;
   padding-bottom: 4px;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1.5px solid var(--color-primary, rgb(0, 10, 156));
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1997,7 +2009,7 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
 }
 
 #unidades .unit-link:hover {
-  border-color: #FFFFFF;
+  border-color: var(--color-brand-dark, rgb(0, 8, 120));
   gap: 12px;
 }
 
@@ -2052,6 +2064,7 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   text-transform: uppercase;
   letter-spacing: 1px;
   border-radius: var(--radius-xs, 4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 #resultados .btn-primary:hover {
@@ -2071,28 +2084,34 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
 }
 
 #resultados .result-item {
-  background: #000885 !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
   border-radius: var(--radius-xs, 4px) !important;
   padding: 20px 22px;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #resultados .result-item:hover {
-  background: #000A9C !important;
   border-color: #FFFFFF !important;
   transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 #resultados .result-icon {
-  color: #FFFFFF !important;
-  font-size: 16px;
+  color: var(--color-primary, rgb(0, 10, 156)) !important;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+#resultados .result-item:hover .result-icon {
+  color: var(--color-primary, rgb(0, 10, 156)) !important;
 }
 
 #resultados .result-title {
-  color: #FFFFFF !important;
+  color: #111111 !important;
   font-size: 14.5px;
   font-weight: 600;
   line-height: 1.5;
