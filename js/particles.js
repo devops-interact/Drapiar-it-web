@@ -1,6 +1,6 @@
 /**
- * particles.js - Interactive ASCII Matrix Canvas Animation + Enhanced Image Sampling
- * DrapiarIT SaaS Premium Design
+ * particles.js - Live Interactive ASCII Matrix Waves
+ * DrapiarIT SaaS Premium Design - High-Contrast Brand Blue ASCII Waves
  */
 
 (function () {
@@ -8,7 +8,7 @@
 
   const CANVAS_ID = 'heroCanvas';
   const RAMP = ' .:-=+*#%@';
-  const CELL = 11; // 11px for crisp detail resolution
+  const CELL = 12; // 12px font cell size for crisp detail
 
   let canvas, ctx;
   let animationFrameId = null;
@@ -20,29 +20,12 @@
   let targetMouseX = -9999, targetMouseY = -9999;
   let time = 0;
 
-  // Offscreen sampling canvas for image pixel reading
-  const sampleCanvas = document.createElement('canvas');
-  const sampleCtx = sampleCanvas.getContext('2d', { willReadFrequently: true });
-
-  let img = null;
-  let imgData = null;
-
   function initCanvas() {
     canvas = document.getElementById(CANVAS_ID) || document.getElementById('ascii-bg');
     if (!canvas) return false;
 
     ctx = canvas.getContext('2d');
     resizeCanvas();
-
-    // Auto-load hero background image from images/hero/ directory
-    const heroSrc = canvas.getAttribute('data-hero-image') || 'images/hero/hero-main.png';
-    const autoImg = new Image();
-    autoImg.onload = () => {
-      img = autoImg;
-      sampleImage();
-    };
-    autoImg.src = heroSrc;
-
     return true;
   }
 
@@ -67,35 +50,9 @@
     ctx.scale(dpr, dpr);
     ctx.font = `bold ${CELL}px "Space Mono", monospace`;
     ctx.textBaseline = 'top';
-
-    if (img) sampleImage();
   }
 
-  function sampleImage() {
-    if (!img) return;
-    sampleCanvas.width = cols;
-    sampleCanvas.height = rows;
-
-    const imgRatio = img.width / img.height;
-    const gridRatio = cols / rows;
-    let sx, sy, sw, sh;
-
-    if (imgRatio > gridRatio) {
-      sh = img.height;
-      sw = sh * gridRatio;
-      sx = (img.width - sw) / 2;
-      sy = 0;
-    } else {
-      sw = img.width;
-      sh = sw / gridRatio;
-      sx = 0;
-      sy = (img.height - sh) / 2;
-    }
-
-    sampleCtx.drawImage(img, sx, sy, sw, sh, 0, 0, cols, rows);
-    imgData = sampleCtx.getImageData(0, 0, cols, rows).data;
-  }
-
+  // Wave function for environmental matrix texture
   function noise(x, y, t) {
     return (
       Math.sin(x * 0.15 + t) +
@@ -105,12 +62,14 @@
   }
 
   function renderFrame() {
-    time += 0.015;
+    time += 0.016; // Fluid wave motion speed
 
+    // Smooth lerp towards target mouse coordinates
     mouseX += (targetMouseX - mouseX) * 0.15;
     mouseY += (targetMouseY - mouseY) * 0.15;
 
-    ctx.fillStyle = '#050811';
+    // Clear background with crisp white
+    ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, width, height);
 
     for (let row = 0; row < rows; row++) {
@@ -123,40 +82,20 @@
         const dist = Math.sqrt(dx * dx + dy * dy);
         const ripple = Math.max(0, 1 - dist / 280);
 
-        let r = 120, g = 160, b = 255, brightness01;
+        // Ambient noise wave value (0.0 to 1.0)
+        const waveVal = (noise(col, row, time) + 1) / 2;
 
-        if (imgData) {
-          const idx = (row * cols + col) * 4;
-          r = imgData[idx];
-          g = imgData[idx + 1];
-          b = imgData[idx + 2];
-          const rawLum = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
-          // Gamma contrast boost so background image shapes pop out vividly
-          brightness01 = Math.pow(rawLum, 0.6) * 1.4;
-          brightness01 = Math.min(1, Math.max(0, brightness01));
-        } else {
-          brightness01 = (noise(col, row, time) + 1) / 2;
-        }
-
-        let intensity = brightness01 * 0.85 + ripple * 0.55;
+        let intensity = waveVal * 0.85 + ripple * 0.55;
         intensity = Math.min(1, Math.max(0, intensity));
 
-        if (intensity < 0.04) continue;
+        if (intensity < 0.02) continue;
 
         const charIndex = Math.floor(intensity * (RAMP.length - 1));
         const char = RAMP[charIndex];
 
-        if (imgData) {
-          const boost = 1.3 + ripple * 0.9;
-          // Ensure vivid high-contrast blue/cyan/white ASCII characters for clear image visibility
-          const cr = Math.min(255, Math.max(60, Math.floor(r * boost)));
-          const cg = Math.min(255, Math.max(110, Math.floor(g * boost)));
-          const cb = Math.min(255, Math.max(200, Math.floor(b * boost)));
-          ctx.fillStyle = `rgb(${cr}, ${cg}, ${cb})`;
-        } else {
-          const brightness = Math.floor(70 + intensity * 185);
-          ctx.fillStyle = `rgb(${brightness}, ${brightness}, ${brightness})`;
-        }
+        // Bold & High-Contrast Drapiar IT Primary Blue (rgb(0, 10, 156))
+        const opacity = 0.22 + intensity * 0.58 + ripple * 0.35;
+        ctx.fillStyle = `rgba(0, 10, 156, ${Math.min(1, opacity).toFixed(3)})`;
 
         ctx.fillText(char, px, py);
       }
@@ -188,7 +127,7 @@
     animate();
   }
 
-  // Mouse & Drag events
+  // Mouse Interactivity (Window level)
   window.addEventListener('mousemove', (e) => {
     if (!canvas) return;
     const hero = document.querySelector('.hero') || canvas;
