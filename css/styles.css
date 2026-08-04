@@ -1871,42 +1871,55 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   gap: var(--spacing-16);
 }
 
-/* Business Units (Capabilities) & Results Section Blue Background */
+/* Business Units (Capabilities) & Results Section Blue Background (Technical Editorial Aesthetic) */
 #unidades,
 #resultados {
   background: var(--color-primary, rgb(0, 10, 156)) !important;
   color: #FFFFFF !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   position: relative;
 }
 
 #unidades .section-index-num,
 #resultados .section-index-num {
-  color: rgba(255, 255, 255, 0.45) !important;
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4) !important;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
 }
 
 #unidades .section-tag,
 #resultados .section-tag {
-  color: #93C5FD !important;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #FFFFFF !important;
+  display: inline-block;
 }
 
 #unidades .section-title,
 #resultados .section-title {
   color: #FFFFFF !important;
+  font-family: var(--font-heading);
 }
 
 #resultados .text-gradient {
-  background: linear-gradient(135deg, #FFFFFF 0%, #BFDBFE 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  color: #FFFFFF !important;
 }
 
 #resultados .text-muted {
-  color: rgba(255, 255, 255, 0.88) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
-/* Capacidades Cards on Blue Background */
+/* Capacidades Cards - Technical Editorial Style */
 #unidades .grid-8 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1926,61 +1939,66 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
 }
 
 #unidades .unit-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-md, 12px);
+  background: #000885;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-xs, 4px);
   padding: 28px 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: transform 0.35s ease, background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
 #unidades .unit-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-4px);
+  background: #000A9C;
   border-color: #FFFFFF;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
 }
 
 #unidades .unit-icon {
-  font-size: 32px;
+  font-size: 28px;
   margin-bottom: 16px;
   color: #FFFFFF;
 }
 
 #unidades .unit-title {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: #FFFFFF !important;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  letter-spacing: -0.2px;
 }
 
 #unidades .unit-desc {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.85) !important;
-  margin-bottom: 20px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8) !important;
+  margin-bottom: 24px;
 }
 
 #unidades .unit-link {
-  font-family: var(--font-heading);
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
   font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   color: #FFFFFF !important;
+  padding-bottom: 4px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.6);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   text-decoration: none;
-  transition: gap 0.25s ease, opacity 0.25s ease;
+  width: fit-content;
+  transition: border-color 0.25s ease, gap 0.25s ease;
 }
 
 #unidades .unit-link:hover {
-  opacity: 0.9;
-  gap: 10px;
+  border-color: #FFFFFF;
+  gap: 12px;
 }
 
 /* Business Units & Methodology headers */
@@ -2028,12 +2046,17 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   background: #FFFFFF !important;
   color: var(--color-primary, rgb(0, 10, 156)) !important;
   border-color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: var(--radius-xs, 4px);
 }
 
 #resultados .btn-primary:hover {
-  background: #EFF6FF !important;
-  color: var(--color-brand-dark, rgb(0, 8, 120)) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #000885 !important;
 }
 
 .result-item {
@@ -2048,29 +2071,31 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
 }
 
 #resultados .result-item {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
-  border-radius: var(--border-radius-md, 10px);
-  padding: 20px 24px;
-  backdrop-filter: blur(8px);
-  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  background: #000885 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--radius-xs, 4px) !important;
+  padding: 20px 22px;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
 #resultados .result-item:hover {
-  background: rgba(255, 255, 255, 0.16) !important;
+  background: #000A9C !important;
   border-color: #FFFFFF !important;
   transform: translateY(-3px);
 }
 
 #resultados .result-icon {
-  color: #93C5FD !important;
-  font-size: 18px;
+  color: #FFFFFF !important;
+  font-size: 16px;
 }
 
 #resultados .result-title {
   color: #FFFFFF !important;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 600;
+  line-height: 1.5;
 }
 
 .result-item:hover {
