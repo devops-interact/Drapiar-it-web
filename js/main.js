@@ -78,66 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================
-     3. FLOATING MODAL OPEN/CLOSE
+     3. DIRECT WHATSAPP CONTACT REDIRECT
      ========================================== */
-  // Open modal triggers
-  const openModal = (interestValue = '') => {
-    if (contactModal) {
-      contactModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      
-      // Auto-select unit of interest if provided
-      if (interestValue) {
-        const selectElement = contactModal.querySelector('select[name="interest"]');
-        if (selectElement) {
-          selectElement.value = interestValue;
-        }
-      }
-    }
-  };
-
-  const closeModal = () => {
-    if (contactModal) {
-      contactModal.classList.remove('active');
-      document.body.style.overflow = '';
-      // Reset form and overlays inside modal on close
-      if (modalForm) {
-        modalForm.reset();
-        clearValidationErrors(modalForm);
-      }
-      if (modalSuccessOverlay) {
-        modalSuccessOverlay.classList.remove('active');
-      }
-    }
-  };
-
-  // Attach modal trigger listeners
+  const WA_URL = 'https://wa.me/message/VSMIJLDVGTMPN1';
   document.querySelectorAll('[data-open-modal]').forEach(trigger => {
     trigger.addEventListener('click', (e) => {
       e.preventDefault();
-      const interest = trigger.getAttribute('data-interest') || '';
-      openModal(interest);
+      window.open(WA_URL, '_blank', 'noopener,noreferrer');
     });
-  });
-
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', closeModal);
-  }
-
-  // Close modal when clicking background overlay
-  if (contactModal) {
-    contactModal.addEventListener('click', (e) => {
-      if (e.target === contactModal) {
-        closeModal();
-      }
-    });
-  }
-
-  // Close modal on Escape key
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && contactModal && contactModal.classList.contains('active')) {
-      closeModal();
-    }
   });
 
   /* ==========================================

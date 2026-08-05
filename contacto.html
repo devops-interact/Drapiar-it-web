@@ -38,7 +38,7 @@
   <meta name="twitter:image" content="https://drapiar.it/images/og-image.png">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css?v=1.3.0">
+  <link rel="stylesheet" href="css/styles.css?v=1.3.1">
 </head>
 <body>
 
@@ -100,12 +100,12 @@
           <li><a href="contacto.html" class="nav-link active">Contacto</a></li>
         </ul>
         <div class="header-actions-mobile">
-          <a href="#" class="btn btn-primary" data-open-modal>Agenda una consultoría</a>
+          <a href="https://wa.me/message/VSMIJLDVGTMPN1" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Agenda una consultoría</a>
         </div>
       </nav>
       
       <div class="header-actions">
-        <a href="#" class="btn btn-primary" data-open-modal>Agenda una consultoría</a>
+        <a href="https://wa.me/message/VSMIJLDVGTMPN1" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Agenda una consultoría</a>
       </div>
       
       <div class="menu-toggle" id="menuToggle">
@@ -126,7 +126,7 @@
         <h1 class="hero-title">Conversemos sobre el <br><span class="text-gradient">siguiente paso de tu transformación</span></h1>
         <p class="hero-copy">Escríbenos describiendo el reto principal que enfrenta tu organización. Analizaremos tu caso detalladamente para identificar las mejores oportunidades de optimización y valor.</p>
         <div class="hero-buttons">
-          <a href="#" class="btn btn-primary" data-open-modal>Agenda una consultoría</a>
+          <a href="https://wa.me/message/VSMIJLDVGTMPN1" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Agenda una consultoría</a>
         </div>
       </div>
     </div>
@@ -145,7 +145,7 @@
             <div class="contact-detail-icon">&#9993;</div>
             <div>
               <div class="contact-detail-label">Correo electrónico</div>
-              <div class="contact-detail-val">contacto@drapiar.it</div>
+              <div class="contact-detail-val">consultoria@drapiarit.com</div>
             </div>
           </div>
           <div class="contact-detail-item">
@@ -165,66 +165,20 @@
         </div>
       </div>
 
-      <!-- Right Panel: Form -->
-      <div class="contact-form-panel glass" style="border-color: rgba(139, 92, 246, 0.2);">
-        <form id="pageContactForm" class="form-grid">
-          <div class="form-group">
-            <label class="form-label" for="pageName">Nombre completo *</label>
-            <input type="text" id="pageName" name="name" class="form-control" placeholder="Ej. Roberto Gómez" required>
-            <div class="form-error-msg"></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="pageCompany">Empresa *</label>
-            <input type="text" id="pageCompany" name="company" class="form-control" placeholder="Ej. Drapiar S.A." required>
-            <div class="form-error-msg"></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="pageRole">Cargo *</label>
-            <input type="text" id="pageRole" name="role" class="form-control" placeholder="Ej. Director de Operaciones" required>
-            <div class="form-error-msg"></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="pageEmail">Correo corporativo *</label>
-            <input type="email" id="pageEmail" name="email" class="form-control" placeholder="Ej. dgomez@empresa.com" required>
-            <div class="form-error-msg"></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="pagePhone">Teléfono *</label>
-            <input type="tel" id="pagePhone" name="phone" class="form-control" placeholder="Ej. +52 55 1234 5678" required>
-            <div class="form-error-msg"></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="pageInterest">Unidad de negocio de interés *</label>
-            <select id="pageInterest" name="interest" class="form-control" required>
-              <option value="" disabled selected>Selecciona una opción</option>
-              <option value="rpa">Hiperautomatización y RPA</option>
-              <option value="ia">Inteligencia Artificial e IA Agéntica</option>
-              <option value="bpm">BPM y Low-Code</option>
-              <option value="dev">Desarrollo de Software</option>
-              <option value="mobile">Aplicaciones Móviles</option>
-              <option value="consulting">Consultoría Especializada</option>
-              <option value="vision">Computer Vision</option>
-              <option value="vr-ar">Realidad Virtual y Aumentada</option>
-            </select>
-            <div class="form-error-msg"></div>
-          </div>
-          <div class="form-group form-group-full">
-            <label class="form-label" for="pageChallenge">Describe brevemente tu reto *</label>
-            <textarea id="pageChallenge" name="challenge" class="form-control" placeholder="Cuéntanos cuál es el reto principal que buscas resolver..." required></textarea>
-            <div class="form-error-msg"></div>
-          </div>
-          <div class="form-group form-group-full form-submit-container">
-            <button type="submit" class="btn btn-primary">Solicitar consultoría especializada</button>
-          </div>
-        </form>
-
-        <!-- Success overlay inside page form container -->
-        <div class="form-success-overlay" id="pageSuccessOverlay">
-          <div class="success-icon">&#10004;</div>
-          <h4 class="success-title">¡Solicitud Enviada!</h4>
-          <p class="success-desc">Gracias por contactar a drapiar IT. Hemos recibido tu solicitud y uno de nuestros especialistas se comunicará contigo para conocer mejor tu reto y explorar posibles soluciones.</p>
-          <button type="button" class="btn btn-secondary" style="margin-top: 24px;" onclick="document.getElementById('pageSuccessOverlay').classList.remove('active');">Enviar otra solicitud</button>
-        </div>
+      <!-- Right Panel: Direct WhatsApp Contact Card -->
+      <div class="contact-form-panel glass" style="display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 40px; border-color: rgba(0, 10, 156, 0.2);">
+        <span class="section-tag" style="margin-bottom: 12px;">Atención Inmediata</span>
+        <h3 style="font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 16px;">Contacto Directo por WhatsApp</h3>
+        <p style="font-family: var(--font-body); font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 28px;">
+          Escríbenos directamente a nuestro WhatsApp oficial para agendar tu sesión de consultoría, recibir información técnica o resolver cualquier duda de manera inmediata con nuestro equipo especializado.
+        </p>
+        <a href="https://wa.me/message/VSMIJLDVGTMPN1" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg" style="margin-bottom: 20px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Iniciar chat en WhatsApp
+        </a>
+        <p style="font-family: var(--font-mono); font-size: 13px; color: var(--text-muted);">
+          O si lo prefieres, envíanos un correo a: <a href="mailto:consultoria@drapiarit.com" style="color: var(--color-primary); font-weight: 700; text-decoration: underline;">consultoria@drapiarit.com</a>
+        </p>
       </div>
     </div>
   </section>
@@ -283,7 +237,7 @@
             <span class="contact-icon">&#9993;</span>
             <div>
               <p style="font-weight: 600; color: #FFFFFF;">Escríbenos</p>
-              <p>contacto@drapiar.it</p>
+              <p>consultoria@drapiarit.com</p>
             </div>
           </div>
           <div class="footer-contact-item">
@@ -307,18 +261,7 @@
   </footer>
 
   <!-- Floating Contact Modal (included for consistency or triggers) -->
-  <div class="modal-overlay" id="contactModal">
-    <div class="modal-box">
-      <button class="modal-close" id="closeModal">&times;</button>
-      <h3 class="modal-title">Agenda una consultoría</h3>
-      <p class="modal-desc text-muted">Cuéntanos sobre tu proyecto y uno de nuestros arquitectos de soluciones se pondrá en contacto contigo.</p>
-      
-      <form id="modalForm" class="form-grid">
-        <div class="form-group">
-          <label class="form-label" for="modalName">Nombre completo *</label>
-          <input type="text" id="modalName" name="name" class="form-control" placeholder="Ej. Roberto Gómez" required>
-          <div class="form-error-msg"></div>
-        </div>
+  
         <div class="form-group">
           <label class="form-label" for="modalCompany">Empresa *</label>
           <input type="text" id="modalCompany" name="company" class="form-control" placeholder="Ej. Drapiar S.A." required>
@@ -374,7 +317,7 @@
     </div>
   </div>
 
-  <script src="js/particles.js?v=1.3.0"></script>
-  <script src="js/main.js?v=1.3.0"></script>
+  <script src="js/particles.js?v=1.3.1"></script>
+  <script src="js/main.js?v=1.3.1"></script>
 </body>
 </html>
