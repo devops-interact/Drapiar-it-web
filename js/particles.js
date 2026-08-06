@@ -52,17 +52,18 @@
     ctx.textBaseline = 'top';
   }
 
-  // Wave function for environmental matrix texture
+  const RAMP = ' .:-=+*#%@WMB8&';
+
   function noise(x, y, t) {
     return (
-      Math.sin(x * 0.15 + t) +
-      Math.sin(y * 0.12 - t * 0.8) +
-      Math.sin((x + y) * 0.08 + t * 0.5)
+      Math.sin(x * 0.12 + t * 1.2) +
+      Math.cos(y * 0.15 - t * 0.9) +
+      Math.sin((x * 0.8 + y) * 0.07 + t * 0.6)
     ) / 3;
   }
 
   function renderFrame() {
-    time += 0.016; // Fluid wave motion speed
+    time += 0.022; // Fluid wave motion speed
 
     // Smooth lerp towards target mouse coordinates
     mouseX += (targetMouseX - mouseX) * 0.15;
@@ -80,21 +81,25 @@
         const dx = px - mouseX;
         const dy = py - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const ripple = Math.max(0, 1 - dist / 280);
+        const ripple = Math.max(0, 1 - dist / 350);
+
+        // Spatial weighting: smooth gradient concentrating wave density heavily on the right side
+        const colRatio = col / cols;
+        const rightBias = Math.pow(colRatio, 0.7);
 
         // Ambient noise wave value (0.0 to 1.0)
         const waveVal = (noise(col, row, time) + 1) / 2;
 
-        let intensity = waveVal * 0.85 + ripple * 0.55;
+        let intensity = (waveVal * 1.1 + ripple * 0.7) * (0.2 + rightBias * 1.1);
         intensity = Math.min(1, Math.max(0, intensity));
 
-        if (intensity < 0.02) continue;
+        if (intensity < 0.04) continue;
 
         const charIndex = Math.floor(intensity * (RAMP.length - 1));
         const char = RAMP[charIndex];
 
-        // Bold & High-Contrast Drapiar IT Primary Blue (rgb(0, 10, 156))
-        const opacity = 0.22 + intensity * 0.58 + ripple * 0.35;
+        // Vivid & High-Contrast Drapiar IT Primary Blue (rgb(0, 10, 156))
+        const opacity = (0.32 + intensity * 0.65 + ripple * 0.4) * (0.35 + rightBias * 0.65);
         ctx.fillStyle = `rgba(0, 10, 156, ${Math.min(1, opacity).toFixed(3)})`;
 
         ctx.fillText(char, px, py);
