@@ -1693,6 +1693,20 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   cursor: pointer !important;
 }
 
+/* Hero Canvas ASCII Particles Background */
+#heroCanvas,
+canvas#heroCanvas,
+.hero canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
 /* Hero Section */
 .hero {
   padding-top: 200px;
@@ -1882,26 +1896,34 @@ a, button, input, select, textarea, .btn, [data-open-modal], .nav-link, .dropdow
   gap: var(--spacing-24);
 }
 
-.reto-img-wrap {
+.reto-img-banner-wrap {
   width: 100%;
-  border-radius: var(--radius-md);
+  height: 320px;
+  border-radius: var(--radius-xs);
   overflow: hidden;
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-md);
-  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  background: var(--bg-secondary);
 }
 
-.reto-img-wrap:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary);
-}
-
-.reto-img {
+.reto-img-banner {
   width: 100%;
-  height: 220px;
+  height: 100%;
   object-fit: cover;
   display: block;
+  filter: grayscale(85%) contrast(1.1);
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.reto-img-banner-wrap:hover .reto-img-banner {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .reto-img-banner-wrap {
+    height: 200px;
+  }
 }
 
 .reto-right-grid {
