@@ -7,7 +7,7 @@
   'use strict';
 
   const CANVAS_ID = 'heroCanvas';
-  const RAMP = ' .:-=+*#%@';
+  const RAMP = ' .:-=+*#%@WMB8&';
   const CELL = 12; // 12px font cell size for crisp detail
 
   let canvas, ctx;
@@ -51,8 +51,6 @@
     ctx.font = `bold ${CELL}px "Space Mono", monospace`;
     ctx.textBaseline = 'top';
   }
-
-  const RAMP = ' .:-=+*#%@WMB8&';
 
   function noise(x, y, t) {
     return (
