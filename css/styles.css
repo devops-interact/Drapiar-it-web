@@ -489,7 +489,7 @@ p, .trust-card-desc, .pain-desc, .unit-desc, .step-desc, .industry-desc, .diff-d
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 4px;
+  border-radius: 0 !important;
   transform: none;
   display: inline-block;
   position: relative;
