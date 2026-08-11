@@ -19,12 +19,25 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================
      1. HEADER SCROLL EFFECT
      ========================================== */
+  let lastScrollY = window.scrollY;
+
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > 50) {
       header.classList.add('header-shrunk');
     } else {
       header.classList.remove('header-shrunk');
     }
+
+    // Auto-hide when scrolling down, show when scrolling up
+    if (currentScrollY > lastScrollY && currentScrollY > 90 && (!navMenu || !navMenu.classList.contains('open'))) {
+      header.classList.add('header-hidden');
+    } else {
+      header.classList.remove('header-hidden');
+    }
+
+    lastScrollY = currentScrollY;
   });
 
   /* ==========================================
