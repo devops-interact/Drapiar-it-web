@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================
      3. DIRECT WHATSAPP CONTACT REDIRECT
      ========================================== */
-  const WA_URL = 'https://wa.me/message/VSMIJLDVGTMPN1';
+  const WA_URL = 'https://wa.me/5218131567814';
   document.querySelectorAll('[data-open-modal]').forEach(trigger => {
     trigger.addEventListener('click', (e) => {
       e.preventDefault();
