@@ -1,26 +1,34 @@
 /**
- * particles.js - Live Interactive ASCII Waves + Left 20% Filter + White Fade Mask + Heavy Right Density
- * Drapiar IT SaaS Premium Design - Pristine Text Readability & Heavy Right-Side Wave Load
+ * particles.js - Live Interactive ASCII Waves + Hero & Footer Canvas Effects
+ * Drapiar IT SaaS Premium Design - Pristine Readability & 45-degree Top-Right Footer Wave
  */
 
 (function () {
   'use strict';
 
-  const CANVAS_ID = 'heroCanvas';
+  const HERO_CANVAS_ID = 'heroCanvas';
   const RAMP = ' .:-=+*#%@WMB8&';
   const CELL = 11;
 
-  let canvas, ctx;
-  let animationFrameId = null;
-  let cols = 0, rows = 0;
-  let width = 0, height = 0;
-  let dpr = 1;
+  // Hero Canvas variables
+  let heroCanvas, heroCtx;
+  let heroAnimationId = null;
+  let heroCols = 0, heroRows = 0;
+  let heroWidth = 0, heroHeight = 0;
+  let heroDpr = 1;
+  let heroMouseX = -9999, heroMouseY = -9999;
+  let heroTargetMouseX = -9999, heroTargetMouseY = -9999;
+  let heroTime = 0;
 
-  let mouseX = -9999, mouseY = -9999;
-  let targetMouseX = -9999, targetMouseY = -9999;
-  let time = 0;
+  // Footer Canvas variables
+  let footerCanvas, footerCtx;
+  let footerCols = 0, footerRows = 0;
+  let footerWidth = 0, footerHeight = 0;
+  let footerTime = 0;
+  let footerMouseX = -9999, footerMouseY = -9999;
+  let footerTargetMouseX = -9999, footerTargetMouseY = -9999;
 
-  // Offscreen canvas for generating tactile film grain
+  // Offscreen canvas for tactile film grain
   let noiseCanvas, noiseCtx;
 
   function generateNoiseTexture() {
@@ -32,47 +40,13 @@
     const imgData = noiseCtx.createImageData(192, 192);
     const data = imgData.data;
     for (let i = 0; i < data.length; i += 4) {
-      // Balanced tactile micro-grain noise (0..25)
       const noiseVal = Math.floor(Math.random() * 25);
-      data[i] = 15;       // Neutral Dark Red
-      data[i + 1] = 20;   // Neutral Dark Green
-      data[i + 2] = 35;   // Neutral Dark Blue
-      data[i + 3] = noiseVal; // Alpha grain (0..30)
+      data[i] = 15;
+      data[i + 1] = 20;
+      data[i + 2] = 35;
+      data[i + 3] = noiseVal;
     }
     noiseCtx.putImageData(imgData, 0, 0);
-  }
-
-  function initCanvas() {
-    canvas = document.getElementById(CANVAS_ID) || document.getElementById('ascii-bg');
-    if (!canvas) return false;
-
-    ctx = canvas.getContext('2d');
-    generateNoiseTexture();
-    resizeCanvas();
-    return true;
-  }
-
-  function resizeCanvas() {
-    if (!canvas) return;
-    const hero = document.querySelector('.hero') || canvas.parentElement;
-    const rect = hero ? hero.getBoundingClientRect() : canvas.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    width = rect.width || window.innerWidth;
-    height = rect.height || 640;
-
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-
-    cols = Math.ceil(width / CELL);
-    rows = Math.ceil(height / CELL);
-
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(dpr, dpr);
-    ctx.font = `bold ${CELL}px "Space Mono", monospace`;
-    ctx.textBaseline = 'top';
   }
 
   // Multi-frequency wave noise
@@ -85,58 +59,88 @@
     ) / 4;
   }
 
-  function renderFrame() {
-    time += 0.024;
+  /* ==========================================
+     HERO ASCII CANVAS LOGIC
+     ========================================== */
+  function initHeroCanvas() {
+    heroCanvas = document.getElementById(HERO_CANVAS_ID) || document.getElementById('ascii-bg');
+    if (!heroCanvas) return false;
 
-    // Instant Cursor Tracking (0.85 lerp speed)
-    mouseX += (targetMouseX - mouseX) * 0.85;
-    mouseY += (targetMouseY - mouseY) * 0.85;
+    heroCtx = heroCanvas.getContext('2d');
+    resizeHeroCanvas();
+    return true;
+  }
+
+  function resizeHeroCanvas() {
+    if (!heroCanvas) return;
+    const hero = document.querySelector('.hero') || heroCanvas.parentElement;
+    const rect = hero ? hero.getBoundingClientRect() : heroCanvas.getBoundingClientRect();
+    heroDpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    heroWidth = rect.width || window.innerWidth;
+    heroHeight = rect.height || 640;
+
+    heroCanvas.width = heroWidth * heroDpr;
+    heroCanvas.height = heroHeight * heroDpr;
+    heroCanvas.style.width = `${heroWidth}px`;
+    heroCanvas.style.height = `${heroHeight}px`;
+
+    heroCols = Math.ceil(heroWidth / CELL);
+    heroRows = Math.ceil(heroHeight / CELL);
+
+    heroCtx.setTransform(1, 0, 0, 1, 0, 0);
+    heroCtx.scale(heroDpr, heroDpr);
+    heroCtx.font = `bold ${CELL}px "Space Mono", monospace`;
+    heroCtx.textBaseline = 'top';
+  }
+
+  function renderHeroFrame() {
+    if (!heroCtx) return;
+    heroTime += 0.024;
+
+    heroMouseX += (heroTargetMouseX - heroMouseX) * 0.85;
+    heroMouseY += (heroTargetMouseY - heroMouseY) * 0.85;
 
     // 1. Crisp White Base Background
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, width, height);
+    heroCtx.fillStyle = '#FFFFFF';
+    heroCtx.fillRect(0, 0, heroWidth, heroHeight);
 
-    // 2. Capa de Resplandor Ambiental (Únicamente en Bordes Derechos)
-    const isMobile = width < 768;
-    
-    // Top-Right Edge Glow
-    const topRightGlow = ctx.createRadialGradient(width, 0, 20, width, 0, 480);
+    const isMobile = heroWidth < 768;
+
+    // 2. Edge Glows
+    const topRightGlow = heroCtx.createRadialGradient(heroWidth, 0, 20, heroWidth, 0, 480);
     topRightGlow.addColorStop(0, 'rgba(0, 75, 255, 0.20)');
     topRightGlow.addColorStop(0.5, 'rgba(0, 10, 156, 0.06)');
     topRightGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
-    ctx.fillStyle = topRightGlow;
-    ctx.fillRect(0, 0, width, height);
+    heroCtx.fillStyle = topRightGlow;
+    heroCtx.fillRect(0, 0, heroWidth, heroHeight);
 
-    // Bottom-Right Edge Glow
-    const bottomRightGlow = ctx.createRadialGradient(width, height, 20, width, height, 480);
+    const bottomRightGlow = heroCtx.createRadialGradient(heroWidth, heroHeight, 20, heroWidth, heroHeight, 480);
     bottomRightGlow.addColorStop(0, 'rgba(0, 75, 255, 0.18)');
     bottomRightGlow.addColorStop(0.5, 'rgba(0, 10, 156, 0.05)');
     bottomRightGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
-    ctx.fillStyle = bottomRightGlow;
-    ctx.fillRect(0, 0, width, height);
+    heroCtx.fillStyle = bottomRightGlow;
+    heroCtx.fillRect(0, 0, heroWidth, heroHeight);
 
-    // 3. Dense ASCII Wave Matrix (Zero density on left 20% text side, Heavy load on right)
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
+    // 3. Dense ASCII Wave Matrix
+    for (let row = 0; row < heroRows; row++) {
+      for (let col = 0; col < heroCols; col++) {
         const px = col * CELL;
         const py = row * CELL;
+        const colRatio = col / heroCols;
 
-        const colRatio = col / cols;
-
-        // Strict Left 20% Zero Bias: No wave rendering on the first 20% of canvas width
         if (colRatio < 0.20 && !isMobile) continue;
 
-        // Exponential right side bias ramping up smoothly from 20% towards 100%
         const rightBias = Math.pow(Math.max(0, colRatio - 0.15) / 0.85, 1.1);
 
-        const dx = px - mouseX;
-        const dy = py - mouseY;
+        const dx = px - heroMouseX;
+        const dy = py - heroMouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
         const ripple = Math.max(0, 1 - dist / 360);
 
-        const waveVal = (noise(col, row, time) + 1) / 2;
+        const waveVal = (noise(col, row, heroTime) + 1) / 2;
 
         let intensity = (waveVal * 1.5 + ripple * 0.9) * (rightBias * 1.5);
         intensity = Math.min(1, Math.max(0, intensity));
@@ -146,86 +150,231 @@
         const charIndex = Math.floor(intensity * (RAMP.length - 1));
         const char = RAMP[charIndex];
 
-        // High-Contrast Drapiar Primary Blue opacity on right side waves
         const opacity = (0.48 + intensity * 0.52 + ripple * 0.45) * (rightBias * 0.92);
-        ctx.fillStyle = `rgba(0, 10, 156, ${Math.min(1, opacity).toFixed(3)})`;
+        heroCtx.fillStyle = `rgba(0, 10, 156, ${Math.min(1, opacity).toFixed(3)})`;
 
-        ctx.fillText(char, px, py);
+        heroCtx.fillText(char, px, py);
       }
     }
 
-    // 4. White Horizontal Gradient Overlay Mask (Smooth transition from 20% to right side)
+    // 4. White Fade Overlay Mask
     if (!isMobile) {
-      const whiteFadeGradient = ctx.createLinearGradient(0, 0, width * 0.55, 0);
+      const whiteFadeGradient = heroCtx.createLinearGradient(0, 0, heroWidth * 0.55, 0);
       whiteFadeGradient.addColorStop(0, '#FFFFFF');
       whiteFadeGradient.addColorStop(0.20, 'rgba(255, 255, 255, 0.98)');
       whiteFadeGradient.addColorStop(0.48, 'rgba(255, 255, 255, 0.45)');
       whiteFadeGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
-      ctx.fillStyle = whiteFadeGradient;
-      ctx.fillRect(0, 0, width, height);
+      heroCtx.fillStyle = whiteFadeGradient;
+      heroCtx.fillRect(0, 0, heroWidth, heroHeight);
     }
 
-    // 5. Tactile Fine Grain Noise Overlay Layer
+    // 5. Tactile Film Grain
     if (noiseCanvas) {
-      const pattern = ctx.createPattern(noiseCanvas, 'repeat');
+      const pattern = heroCtx.createPattern(noiseCanvas, 'repeat');
       if (pattern) {
-        ctx.fillStyle = pattern;
-        ctx.fillRect(0, 0, width, height);
+        heroCtx.fillStyle = pattern;
+        heroCtx.fillRect(0, 0, heroWidth, heroHeight);
       }
     }
   }
 
+  /* ==========================================
+     FOOTER ASCII CANVAS LOGIC (Fondo Azul + ASCII Gris Casi Blanco a 45° en Esquina Superior Derecha)
+     ========================================== */
+  function initFooterCanvas() {
+    const footerElem = document.querySelector('.footer');
+    if (!footerElem) return false;
+
+    footerCanvas = document.getElementById('footerCanvas');
+    if (!footerCanvas) {
+      footerCanvas = document.createElement('canvas');
+      footerCanvas.id = 'footerCanvas';
+      footerElem.insertBefore(footerCanvas, footerElem.firstChild);
+    }
+
+    footerCtx = footerCanvas.getContext('2d');
+    resizeFooterCanvas();
+    return true;
+  }
+
+  function resizeFooterCanvas() {
+    if (!footerCanvas) return;
+    const footerElem = document.querySelector('.footer');
+    const rect = footerElem ? footerElem.getBoundingClientRect() : footerCanvas.getBoundingClientRect();
+    const footerDpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    footerWidth = rect.width || window.innerWidth;
+    footerHeight = rect.height || 400;
+
+    footerCanvas.width = footerWidth * footerDpr;
+    footerCanvas.height = footerHeight * footerDpr;
+    footerCanvas.style.width = `${footerWidth}px`;
+    footerCanvas.style.height = `${footerHeight}px`;
+
+    footerCols = Math.ceil(footerWidth / CELL);
+    footerRows = Math.ceil(footerHeight / CELL);
+
+    footerCtx.setTransform(1, 0, 0, 1, 0, 0);
+    footerCtx.scale(footerDpr, footerDpr);
+    footerCtx.font = `bold ${CELL}px "Space Mono", monospace`;
+    footerCtx.textBaseline = 'top';
+  }
+
+  function renderFooterFrame() {
+    if (!footerCtx) return;
+    footerTime += 0.02;
+
+    footerMouseX += (footerTargetMouseX - footerMouseX) * 0.85;
+    footerMouseY += (footerTargetMouseY - footerMouseY) * 0.85;
+
+    // 1. Solid Primary Blue Base (#000A9C)
+    footerCtx.fillStyle = '#000A9C';
+    footerCtx.fillRect(0, 0, footerWidth, footerHeight);
+
+    // 2. Resplandor sutil en la esquina superior derecha
+    const topRightGlow = footerCtx.createRadialGradient(footerWidth, 0, 10, footerWidth, 0, Math.max(footerWidth * 0.55, 420));
+    topRightGlow.addColorStop(0, 'rgba(0, 140, 255, 0.22)');
+    topRightGlow.addColorStop(0.5, 'rgba(0, 50, 180, 0.08)');
+    topRightGlow.addColorStop(1, 'rgba(0, 10, 156, 0)');
+
+    footerCtx.fillStyle = topRightGlow;
+    footerCtx.fillRect(0, 0, footerWidth, footerHeight);
+
+    // 3. ASCII Matrix inclinado a 45 grados y denso hacia la esquina superior derecha
+    for (let row = 0; row < footerRows; row++) {
+      for (let col = 0; col < footerCols; col++) {
+        const px = col * CELL;
+        const py = row * CELL;
+
+        const colRatio = col / footerCols;         // 0 (izq) -> 1 (der)
+        const rowRatio = row / footerRows;         // 0 (arriba) -> 1 (abajo)
+        const invRowRatio = 1 - rowRatio;          // 1 (arriba) -> 0 (abajo)
+
+        // Proyección a 45 grados cargada hacia la esquina superior derecha
+        const diagRatio = (colRatio * 0.65 + invRowRatio * 0.35);
+        const topRightBias = Math.pow(diagRatio, 1.35);
+
+        if (topRightBias < 0.12) continue;
+
+        const dx = px - footerMouseX;
+        const dy = py - footerMouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const ripple = Math.max(0, 1 - dist / 300);
+
+        // Ondas con inclinación de 45 grados (x+y y x-y)
+        const waveVal = (noise(col * 0.75 + row * 0.75, col * 0.75 - row * 0.75, footerTime) + 1) / 2;
+
+        let intensity = (waveVal * 1.4 + ripple * 0.8) * (topRightBias * 1.35);
+        intensity = Math.min(1, Math.max(0, intensity));
+
+        if (intensity < 0.04) continue;
+
+        const charIndex = Math.floor(intensity * (RAMP.length - 1));
+        const char = RAMP[charIndex];
+
+        // Color Gris Casi Blanco (#E2E8F0) para alto contraste en fondo azul
+        const opacity = (0.35 + intensity * 0.55 + ripple * 0.45) * (topRightBias * 0.85);
+        footerCtx.fillStyle = `rgba(226, 232, 240, ${Math.min(0.90, opacity).toFixed(3)})`;
+
+        footerCtx.fillText(char, px, py);
+      }
+    }
+
+    // 4. Micro-textura de grano analógico
+    if (noiseCanvas) {
+      const pattern = footerCtx.createPattern(noiseCanvas, 'repeat');
+      if (pattern) {
+        footerCtx.fillStyle = pattern;
+        footerCtx.fillRect(0, 0, footerWidth, footerHeight);
+      }
+    }
+  }
+
+  /* ==========================================
+     MAIN ANIMATION LOOP & EVENTS
+     ========================================== */
+  function renderAll() {
+    renderHeroFrame();
+    renderFooterFrame();
+  }
+
   function animate() {
     if (document.visibilityState === 'hidden') {
-      animationFrameId = requestAnimationFrame(animate);
+      heroAnimationId = requestAnimationFrame(animate);
       return;
     }
 
-    renderFrame();
-    animationFrameId = requestAnimationFrame(animate);
+    renderAll();
+    heroAnimationId = requestAnimationFrame(animate);
   }
 
   function start() {
-    if (!initCanvas()) return;
+    generateNoiseTexture();
+    const hasHero = initHeroCanvas();
+    const hasFooter = initFooterCanvas();
+
+    if (!hasHero && !hasFooter) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
-      renderFrame();
+      renderAll();
       return;
     }
 
-    if (animationFrameId) {
-      cancelAnimationFrame(animationFrameId);
+    if (heroAnimationId) {
+      cancelAnimationFrame(heroAnimationId);
     }
     animate();
   }
 
   function updateMousePos(e) {
-    if (!canvas) return;
-    const hero = document.querySelector('.hero') || canvas;
-    const rect = hero.getBoundingClientRect();
-    const clientX = e.clientX - rect.left;
-    const clientY = e.clientY - rect.top;
+    if (heroCanvas) {
+      const hero = document.querySelector('.hero') || heroCanvas;
+      const rect = hero.getBoundingClientRect();
+      const clientX = e.clientX - rect.left;
+      const clientY = e.clientY - rect.top;
 
-    if (clientX >= 0 && clientX <= rect.width && clientY >= 0 && clientY <= rect.height) {
-      targetMouseX = clientX;
-      targetMouseY = clientY;
-      if (mouseX < -1000) {
-        mouseX = clientX;
-        mouseY = clientY;
+      if (clientX >= 0 && clientX <= rect.width && clientY >= 0 && clientY <= rect.height) {
+        heroTargetMouseX = clientX;
+        heroTargetMouseY = clientY;
+        if (heroMouseX < -1000) {
+          heroMouseX = clientX;
+          heroMouseY = clientY;
+        }
+      } else {
+        heroTargetMouseX = -9999;
+        heroTargetMouseY = -9999;
       }
-    } else {
-      targetMouseX = -9999;
-      targetMouseY = -9999;
+    }
+
+    if (footerCanvas) {
+      const footerElem = document.querySelector('.footer') || footerCanvas;
+      const rect = footerElem.getBoundingClientRect();
+      const clientX = e.clientX - rect.left;
+      const clientY = e.clientY - rect.top;
+
+      if (clientX >= 0 && clientX <= rect.width && clientY >= 0 && clientY <= rect.height) {
+        footerTargetMouseX = clientX;
+        footerTargetMouseY = clientY;
+        if (footerMouseX < -1000) {
+          footerMouseX = clientX;
+          footerMouseY = clientY;
+        }
+      } else {
+        footerTargetMouseX = -9999;
+        footerTargetMouseY = -9999;
+      }
     }
   }
 
   window.addEventListener('mousemove', updateMousePos, { passive: true });
 
   window.addEventListener('mouseleave', () => {
-    targetMouseX = -9999;
-    targetMouseY = -9999;
+    heroTargetMouseX = -9999;
+    heroTargetMouseY = -9999;
+    footerTargetMouseX = -9999;
+    footerTargetMouseY = -9999;
   });
 
   if (document.readyState === 'loading') {
@@ -235,6 +384,7 @@
   }
 
   window.addEventListener('resize', () => {
-    resizeCanvas();
+    resizeHeroCanvas();
+    resizeFooterCanvas();
   });
 })();
