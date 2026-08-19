@@ -258,11 +258,12 @@ document.addEventListener('DOMContentLoaded', () => {
       '.reveal-stagger'
     ];
 
+    const isMobile = window.innerWidth <= 768;
     staggerContainers.forEach(containerSelector => {
       document.querySelectorAll(containerSelector).forEach(container => {
         const children = Array.from(container.children);
-        const delayStep = containerSelector === '.methodology-timeline' ? 160 : 110;
-        const maxDelay = containerSelector === '.methodology-timeline' ? 640 : 440;
+        const delayStep = isMobile ? 40 : (containerSelector === '.methodology-timeline' ? 160 : 110);
+        const maxDelay = isMobile ? 160 : (containerSelector === '.methodology-timeline' ? 640 : 440);
         children.forEach((child, index) => {
           if (!child.classList.contains('reveal')) {
             child.classList.add('reveal');
@@ -287,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '.contact-info-panel',
       '.contact-form-panel',
       '.reto-left',
-      '.methodology-step'
+      '.methodology-timeline'
     ];
 
     document.querySelectorAll(componentSelectors.join(', ')).forEach(el => {
@@ -341,5 +342,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // Dedicated Scroll-Reactive Controller for Methodology Steps
+  const initMethodologyScrollReactive = () => {
+    const section = document.getElementById('metodologia');
+    if (!section) return;
+
+    const timeline = section.querySelector('.methodology-timeline');
+    const steps = Array.from(section.querySelectorAll('.methodology-step'));
+    if (!steps.length) return;
+
+    const updateScrollProgress = () => {
+      const isMobile = window.innerWidth <= 768;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      if (isMobile) {
+        steps.forEach(step => {
+          const rect = step.getBoundingClientRect();
+          if (rect.top < windowHeight - 60) {
+            step.classList.add('revealed');
+          }
+        });
+        return;
+      }
+
+      // Desktop: Direct Scroll-Position-Driven Step Reveal
+      const rect = section.getBoundingClientRect();
+      const startPos = windowHeight * 0.85;
+      const endPos = windowHeight * 0.18;
+      const totalDistance = startPos - endPos;
+      
+      let progress = (startPos - rect.top) / totalDistance;
+      progress = Math.max(0, Math.min(1, progress));
+
+      const thresholds = [0.08, 0.32, 0.58, 0.82];
+
+      steps.forEach((step, idx) => {
+        if (progress >= thresholds[idx]) {
+          step.classList.add('revealed');
+        } else {
+          step.classList.remove('revealed');
+        }
+      });
+
+      if (timeline) {
+        const lineWidth = Math.min(84, Math.max(0, progress * 88));
+        timeline.style.setProperty('--line-progress', `${lineWidth}%`);
+        if (progress > 0.05) {
+          timeline.classList.add('revealed');
+        } else {
+          timeline.classList.remove('revealed');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress, { passive: true });
+    
+    updateScrollProgress();
+    setTimeout(updateScrollProgress, 150);
+  };
+
+  /* ==========================================
+     Hover Video Slide-in Controller (Despliegues en el campo)
+     ========================================== */
+  const initCaseVideoHover = () => {
+    document.querySelectorAll('.case-editorial-card').forEach(card => {
+      const video = card.querySelector('.case-editorial-video');
+      if (video) {
+        card.addEventListener('mouseenter', () => {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        });
+        card.addEventListener('mouseleave', () => {
+          video.pause();
+        });
+      }
+    });
+  };
+
   initScrollReveal();
+  initMethodologyScrollReactive();
+  initCaseVideoHover();
 });
