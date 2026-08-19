@@ -57,10 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
         spans[2].style.backgroundColor = '#000A9C';
       } else {
         spans[0].style.transform = 'none';
-        spans[0].style.backgroundColor = '#FFFFFF';
+        spans[0].style.backgroundColor = '#000A9C';
         spans[1].style.opacity = '1';
         spans[2].style.transform = 'none';
-        spans[2].style.backgroundColor = '#FFFFFF';
+        spans[2].style.backgroundColor = '#000A9C';
       }
     });
 
@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
         menuToggle.classList.remove('is-active');
         const spans = menuToggle.querySelectorAll('span');
         spans[0].style.transform = 'none';
-        spans[0].style.backgroundColor = '#FFFFFF';
+        spans[0].style.backgroundColor = '#000A9C';
         spans[1].style.opacity = '1';
         spans[2].style.transform = 'none';
-        spans[2].style.backgroundColor = '#FFFFFF';
+        spans[2].style.backgroundColor = '#000A9C';
       });
     });
   }
