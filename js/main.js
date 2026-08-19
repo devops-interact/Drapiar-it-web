@@ -420,6 +420,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  /* Ensure all background & case videos are 100% silent across all browsers */
+  document.querySelectorAll('video').forEach(video => {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+  });
+
   initScrollReveal();
   initMethodologyScrollReactive();
   initCaseVideoHover();
