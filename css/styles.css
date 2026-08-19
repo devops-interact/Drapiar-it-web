@@ -1876,12 +1876,22 @@ body::before {
   z-index: 99999;
 }
 
-/* Infinite Clients Logo Marquee Carousel */
-.clients-marquee-section {
-  padding: 26px 0 30px !important;
+/* Floating Overlapping Blue Marquee Card (Sin Rounded, Titulo Blanco, Secciones Pegadas) */
+.clients-marquee-wrapper {
+  position: relative;
+  z-index: 30;
+  margin-top: -38px;
+  margin-bottom: -38px;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.clients-marquee-card {
   background: var(--color-primary, #000A9C) !important;
-  box-shadow: none !important;
-  border: none !important;
+  box-shadow: 0 16px 40px rgba(0, 10, 156, 0.35), 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  padding: 22px 28px 24px !important;
   overflow: hidden;
   position: relative;
 }
@@ -1892,8 +1902,8 @@ body::before {
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 24px !important;
+  color: #FFFFFF !important;
+  margin-bottom: 18px !important;
   text-align: center;
   text-shadow: none !important;
 }
@@ -1903,8 +1913,8 @@ body::before {
   overflow: hidden;
   position: relative;
   width: 100%;
-  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
 .clients-marquee-track {
@@ -1929,7 +1939,7 @@ body::before {
   font-size: 14.5px;
   font-weight: 700;
   letter-spacing: 2.4px;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.75) !important;
   text-transform: uppercase;
   white-space: nowrap;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -1944,7 +1954,7 @@ body::before {
   width: auto;
   max-width: 110px;
   object-fit: contain;
-  filter: brightness(0) invert(1) opacity(0.85);
+  filter: brightness(0) invert(1) opacity(0.88);
   transition: filter 0.3s ease, transform 0.3s ease;
 }
 
@@ -1954,7 +1964,7 @@ body::before {
 }
 
 .client-logo-type:hover {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   transform: scale(1.06);
 }
 
@@ -2049,7 +2059,7 @@ body::before {
 .reto-section {
   position: relative;
   background-color: #060913 !important;
-  background-image: linear-gradient(to right, #060913 0%, rgba(6, 9, 19, 0.96) 38%, rgba(6, 9, 19, 0.65) 62%, rgba(6, 9, 19, 0.05) 100%), url('../images/contenido/01-Reto-operativo.jpg') !important;
+  background-image: linear-gradient(to right, #060913 0%, rgba(6, 9, 19, 0.86) 38%, rgba(6, 9, 19, 0.55) 62%, rgba(6, 9, 19, 0.02) 100%), url('../images/contenido/01-Reto-operativo.jpg') !important;
   background-size: cover !important;
   background-position: center right !important;
   background-repeat: no-repeat !important;
