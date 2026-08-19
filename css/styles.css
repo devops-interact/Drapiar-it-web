@@ -1877,26 +1877,19 @@ body::before {
 }
 
 /* Floating Overlapping Blue Marquee Card (Sin Franja Blanca, 10% más angosto, Sin Rounded) */
-.clients-marquee-wrapper {
-  position: relative;
-  z-index: 30;
-  margin-top: -38px;
-  margin-bottom: -38px;
-  background: #060913 !important;
-  padding: 0 !important;
-}
-
-.clients-marquee-card {
-  max-width: 1040px !important;
-  width: 90% !important;
-  margin: 0 auto !important;
+/* Full-Width Blue Marquee Carousel Section (100vw, Smooth Mask Fade on Ends) */
+.clients-marquee-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 24px 0 28px !important;
   background: var(--color-primary, #000A9C) !important;
-  box-shadow: 0 16px 40px rgba(0, 10, 156, 0.45), 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: none !important;
+  border: none !important;
   border-radius: 0 !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  padding: 20px 24px 22px !important;
   overflow: hidden;
   position: relative;
+  z-index: 10;
 }
 
 .clients-marquee-title {
@@ -4321,19 +4314,22 @@ section, div[id] {
   border: none !important;
 }
 
-.industries-blue-section .section-title,
+.industries-blue-section .section-title {
+  color: #FFFFFF !important;
+}
+
 .industries-blue-section .section-index-num {
-  color: #FFFFFF !important;
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
-.industries-blue-section .section-tag {
+.industries-blue-section .section-tag,
+.industries-blue-section .section-tag::before,
+.industries-blue-section .section-tag::after {
   color: #FFFFFF !important;
-  border-color: rgba(255, 255, 255, 0.4) !important;
-  background: rgba(255, 255, 255, 0.12) !important;
-}
-
-.industries-blue-section .section-tag .section-num {
-  color: #FFFFFF !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
 .industries-blue-section .industries-grid {
