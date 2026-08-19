@@ -2426,7 +2426,7 @@ body::before {
   background-clip: padding-box !important;
 }
 
-/* Pseudo-elemento overlay oscuro continuo para evitar sangrado de 1px */
+/* Capacidades Cards - Gradient Overlay (Negro abajo -> 100% Transparente arriba) */
 #unidades .unit-card::before {
   content: '' !important;
   display: block !important;
@@ -2435,7 +2435,7 @@ body::before {
   left: -1px !important;
   right: -1px !important;
   bottom: -1px !important;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 45%, rgba(0, 0, 0, 0.15) 100%) !important;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0) 100%) !important;
   z-index: 1 !important;
   pointer-events: none !important;
   opacity: 1 !important;
@@ -2514,7 +2514,7 @@ body::before {
 
 #unidades .unit-card:hover::before,
 #unidades .unit-card.active::before {
-  background: linear-gradient(to top, rgba(10, 15, 30, 0.96) 0%, rgba(10, 15, 30, 0.88) 100%) !important;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.65) 50%, rgba(0, 0, 0, 0.1) 80%, rgba(0, 0, 0, 0) 100%) !important;
 }
 
 #unidades .unit-card:nth-child(1) { background-image: url('../images/industrias/hiperautomatizacion-rpa.png') !important; }
@@ -3857,7 +3857,7 @@ section, div[id] {
     border-radius: var(--radius-xs, 4px) !important;
     border: none !important;
     outline: none !important;
-    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14) !important;
     margin-bottom: 24px !important;
     padding: 24px 20px !important;
     cursor: pointer;
@@ -3889,7 +3889,7 @@ section, div[id] {
     background: #FFFFFF !important;
     border: 1px solid var(--border-light) !important;
     border-radius: var(--radius-xs, 4px) !important;
-    box-shadow: 0 -4px 18px rgba(0, 10, 156, 0.08) !important;
+    box-shadow: 0 3px 10px rgba(0, 10, 156, 0.05) !important;
     margin-bottom: 24px !important;
     overflow: hidden !important;
   }
