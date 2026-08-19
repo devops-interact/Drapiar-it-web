@@ -1876,22 +1876,25 @@ body::before {
   z-index: 99999;
 }
 
-/* Floating Overlapping Blue Marquee Card (Sin Rounded, Titulo Blanco, Secciones Pegadas) */
+/* Floating Overlapping Blue Marquee Card (Sin Franja Blanca, 10% más angosto, Sin Rounded) */
 .clients-marquee-wrapper {
   position: relative;
   z-index: 30;
   margin-top: -38px;
   margin-bottom: -38px;
-  background: transparent !important;
+  background: #060913 !important;
   padding: 0 !important;
 }
 
 .clients-marquee-card {
+  max-width: 1040px !important;
+  width: 90% !important;
+  margin: 0 auto !important;
   background: var(--color-primary, #000A9C) !important;
-  box-shadow: 0 16px 40px rgba(0, 10, 156, 0.35), 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+  box-shadow: 0 16px 40px rgba(0, 10, 156, 0.45), 0 4px 16px rgba(0, 0, 0, 0.3) !important;
   border-radius: 0 !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  padding: 22px 28px 24px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  padding: 20px 24px 22px !important;
   overflow: hidden;
   position: relative;
 }
