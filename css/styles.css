@@ -2452,11 +2452,6 @@ body::before {
   z-index: 2 !important;
 }
 
-#unidades .unit-card > * {
-  position: relative !important;
-  z-index: 2 !important;
-}
-
 #unidades .unit-card .unit-card-icon-svg {
   width: 36px;
   height: 36px;
@@ -2467,8 +2462,7 @@ body::before {
   display: block;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
   opacity: 0.95;
-  transform: translateY(28px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
 #unidades .unit-card .unit-title {
@@ -2478,9 +2472,8 @@ body::before {
   color: #FFFFFF !important;
   line-height: 1.35;
   margin-top: 0;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
-  transform: translateY(28px);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
 }
 
@@ -2494,8 +2487,7 @@ body::before {
   margin-top: 0;
   margin-bottom: 0;
   overflow: hidden;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateY(18px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
 }
@@ -2510,9 +2502,9 @@ body::before {
   gap: 8px;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  margin-top: auto;
+  margin-top: 6px;
   opacity: 0.88;
-  transition: color 0.3s ease, opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.3s ease, opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #unidades .unit-card .unit-link svg {
@@ -2534,7 +2526,7 @@ body::before {
 #unidades .unit-card:nth-child(7) { background-image: url('../images/capacidades/computer-vision.png') !important; }
 #unidades .unit-card:nth-child(8) { background-image: url('../images/capacidades/realidad-virtual-ar.png') !important; }
 
-/* Hover / Active State: Icon & Title shift UPWARDS, Subtitle unfolds smoothly */
+/* Hover / Active State: Subtitle unfolds in between, smoothly shifting Icon & Title UPWARDS */
 #unidades .unit-card:hover,
 #unidades .unit-card.active {
   transform: translateY(-6px);
@@ -2543,23 +2535,12 @@ body::before {
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
 }
 
-#unidades .unit-card:hover .unit-card-icon-svg,
-#unidades .unit-card.active .unit-card-icon-svg {
-  transform: translateY(0);
-}
-
-#unidades .unit-card:hover .unit-title,
-#unidades .unit-card.active .unit-title {
-  transform: translateY(0);
-}
-
 #unidades .unit-card:hover .unit-desc,
 #unidades .unit-card.active .unit-desc {
   opacity: 1;
   max-height: 160px;
-  margin-top: 8px;
+  margin-top: 10px;
   margin-bottom: 16px;
-  transform: translateY(0);
   pointer-events: auto;
 }
 
@@ -2567,6 +2548,7 @@ body::before {
 #unidades .unit-card.active .unit-link {
   color: #FFFFFF !important;
   opacity: 1;
+  margin-top: 0;
   transform: translateX(4px);
 }
 
