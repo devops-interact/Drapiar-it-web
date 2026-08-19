@@ -3854,9 +3854,10 @@ section, div[id] {
     max-height: 280px !important;
     background-size: cover !important;
     background-position: center top !important;
-    border-radius: 8px !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
-    box-shadow: 0 -12px 35px rgba(0, 0, 0, 0.8) !important;
+    border-radius: var(--radius-xs, 4px) !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.4) !important;
     margin-bottom: 24px !important;
     padding: 24px 20px !important;
     cursor: pointer;
@@ -3887,8 +3888,8 @@ section, div[id] {
     top: 90px !important;
     background: #FFFFFF !important;
     border: 1px solid var(--border-light) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 -12px 35px rgba(0, 10, 156, 0.16) !important;
+    border-radius: var(--radius-xs, 4px) !important;
+    box-shadow: 0 -4px 18px rgba(0, 10, 156, 0.08) !important;
     margin-bottom: 24px !important;
     overflow: hidden !important;
   }
@@ -4254,6 +4255,35 @@ section, div[id] {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding-inline: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .cases-editorial-section {
+    padding: 54px 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .cases-editorial-grid-2x2 {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .case-editorial-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 20px 16px !important;
+  }
+
   .case-editorial-kpi {
     font-size: 11px !important;
     padding: 4px 8px !important;
