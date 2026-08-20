@@ -1946,9 +1946,18 @@ body::before {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--color-primary, #000A9C) !important;
-  margin-bottom: 28px !important;
+  margin-bottom: 8px !important;
   text-align: center;
   text-shadow: none !important;
+}
+
+.clients-marquee-subtitle {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: #4B5563 !important;
+  margin-bottom: 28px !important;
+  text-align: center;
 }
 
 .clients-marquee-container {
@@ -2066,7 +2075,13 @@ body::before {
   .hero:not(.hero-landing) .hero-overlay-gradient,
   .solution-hero:not(.hero-landing) .hero-overlay-gradient,
   .hero-overlay-gradient {
-    background: rgba(255, 255, 255, 0.82) !important;
+    background: linear-gradient(
+      90deg, 
+      #FFFFFF 0%, 
+      rgba(255, 255, 255, 0.98) 45%, 
+      rgba(255, 255, 255, 0.6) 75%, 
+      rgba(255, 255, 255, 0) 100%
+    ) !important;
   }
 }
 
