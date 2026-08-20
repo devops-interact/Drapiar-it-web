@@ -1946,18 +1946,20 @@ body::before {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--color-primary, #000A9C) !important;
-  margin-bottom: 8px !important;
+  margin-bottom: 24px !important;
   text-align: center;
   text-shadow: none !important;
 }
 
 .clients-marquee-subtitle {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 12px !important;
   font-weight: 500;
-  color: #4B5563 !important;
-  margin-bottom: 28px !important;
+  color: #6B7280 !important;
+  margin-top: 24px !important;
+  margin-bottom: 0 !important;
   text-align: center;
+  letter-spacing: 0.3px;
 }
 
 .clients-marquee-container {
