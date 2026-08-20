@@ -2061,6 +2061,20 @@ body::before {
   ) !important;
 }
 
+@media (max-width: 768px) {
+  .hero-landing .hero-overlay-gradient {
+    background: linear-gradient(
+      90deg, 
+      rgba(255, 255, 255, 0) 0%, 
+      rgba(255, 255, 255, 0.4) 16%, 
+      rgba(255, 255, 255, 0.98) 35%, 
+      rgba(255, 255, 255, 0.98) 65%, 
+      rgba(255, 255, 255, 0.4) 84%, 
+      rgba(255, 255, 255, 0) 100%
+    ) !important;
+  }
+}
+
 /* Default Inner Pages Hero Overlay Gradient (Left-to-Right: White -> Transparent) */
 .hero:not(.hero-landing) .hero-overlay-gradient,
 .solution-hero:not(.hero-landing) .hero-overlay-gradient {
