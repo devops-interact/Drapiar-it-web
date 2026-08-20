@@ -107,33 +107,36 @@
 
     const isMobile = heroWidth < 768;
 
-    // 2. Edge Glows
-    const topRightGlow = heroCtx.createRadialGradient(heroWidth, 0, 20, heroWidth, 0, 480);
-    topRightGlow.addColorStop(0, 'rgba(0, 75, 255, 0.20)');
-    topRightGlow.addColorStop(0.5, 'rgba(0, 10, 156, 0.06)');
+    // 2. Full-Width Balanced Glows across entire Hero
+    const centerGlow = heroCtx.createRadialGradient(heroWidth * 0.5, heroHeight * 0.5, 50, heroWidth * 0.5, heroHeight * 0.5, Math.max(heroWidth * 0.6, 600));
+    centerGlow.addColorStop(0, 'rgba(0, 10, 156, 0.08)');
+    centerGlow.addColorStop(0.5, 'rgba(0, 75, 255, 0.04)');
+    centerGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+    heroCtx.fillStyle = centerGlow;
+    heroCtx.fillRect(0, 0, heroWidth, heroHeight);
+
+    const topLeftGlow = heroCtx.createRadialGradient(0, 0, 20, 0, 0, 550);
+    topLeftGlow.addColorStop(0, 'rgba(0, 75, 255, 0.18)');
+    topLeftGlow.addColorStop(0.5, 'rgba(0, 10, 156, 0.05)');
+    topLeftGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+    heroCtx.fillStyle = topLeftGlow;
+    heroCtx.fillRect(0, 0, heroWidth, heroHeight);
+
+    const topRightGlow = heroCtx.createRadialGradient(heroWidth, 0, 20, heroWidth, 0, 550);
+    topRightGlow.addColorStop(0, 'rgba(0, 75, 255, 0.18)');
+    topRightGlow.addColorStop(0.5, 'rgba(0, 10, 156, 0.05)');
     topRightGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
     heroCtx.fillStyle = topRightGlow;
     heroCtx.fillRect(0, 0, heroWidth, heroHeight);
 
-    const bottomRightGlow = heroCtx.createRadialGradient(heroWidth, heroHeight, 20, heroWidth, heroHeight, 480);
-    bottomRightGlow.addColorStop(0, 'rgba(0, 75, 255, 0.18)');
-    bottomRightGlow.addColorStop(0.5, 'rgba(0, 10, 156, 0.05)');
-    bottomRightGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-    heroCtx.fillStyle = bottomRightGlow;
-    heroCtx.fillRect(0, 0, heroWidth, heroHeight);
-
-    // 3. Dense ASCII Wave Matrix
+    // 3. Full-Width ASCII Wave Matrix across entire hero
     for (let row = 0; row < heroRows; row++) {
       for (let col = 0; col < heroCols; col++) {
         const px = col * CELL;
         const py = row * CELL;
-        const colRatio = col / heroCols;
-
-        if (colRatio < 0.20 && !isMobile) continue;
-
-        const rightBias = Math.pow(Math.max(0, colRatio - 0.15) / 0.85, 1.1);
 
         const dx = px - heroMouseX;
         const dy = py - heroMouseY;
@@ -142,31 +145,17 @@
 
         const waveVal = (noise(col, row, heroTime) + 1) / 2;
 
-        let intensity = (waveVal * 1.5 + ripple * 0.9) * (rightBias * 1.5);
+        let intensity = (waveVal * 1.5 + ripple * 0.8);
         intensity = Math.min(1, Math.max(0, intensity));
-
-        if (intensity < 0.035) continue;
 
         const charIndex = Math.floor(intensity * (RAMP.length - 1));
         const char = RAMP[charIndex];
 
-        const opacity = (0.48 + intensity * 0.52 + ripple * 0.45) * (rightBias * 0.92);
+        const opacity = (0.28 + intensity * 0.65 + ripple * 0.45);
         heroCtx.fillStyle = `rgba(0, 10, 156, ${Math.min(1, opacity).toFixed(3)})`;
 
         heroCtx.fillText(char, px, py);
       }
-    }
-
-    // 4. White Fade Overlay Mask
-    if (!isMobile) {
-      const whiteFadeGradient = heroCtx.createLinearGradient(0, 0, heroWidth * 0.55, 0);
-      whiteFadeGradient.addColorStop(0, '#FFFFFF');
-      whiteFadeGradient.addColorStop(0.20, 'rgba(255, 255, 255, 0.98)');
-      whiteFadeGradient.addColorStop(0.48, 'rgba(255, 255, 255, 0.45)');
-      whiteFadeGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-      heroCtx.fillStyle = whiteFadeGradient;
-      heroCtx.fillRect(0, 0, heroWidth, heroHeight);
     }
 
     // 5. Tactile Film Grain

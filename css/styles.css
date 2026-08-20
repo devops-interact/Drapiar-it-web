@@ -1923,15 +1923,16 @@ body::before {
   z-index: 99999;
 }
 
-/* Full-Width Blue Marquee Carousel Section (100vw, Smooth Mask Fade on Ends) */
+/* Full-Width Marquee Carousel Section (100vw, Smooth Mask Fade on Ends) */
 .clients-marquee-section {
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
-  padding: 38px 0 42px !important;
-  background: var(--color-primary, #000A9C) !important;
+  padding: 40px 0 44px !important;
+  background: #FFFFFF !important;
+  border-top: 1px solid var(--border-light, rgba(0, 0, 0, 0.08)) !important;
+  border-bottom: 1px solid var(--border-light, rgba(0, 0, 0, 0.08)) !important;
   box-shadow: none !important;
-  border: none !important;
   border-radius: 0 !important;
   overflow: hidden;
   position: relative;
@@ -1944,8 +1945,8 @@ body::before {
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: #FFFFFF !important;
-  margin-bottom: 26px !important;
+  color: var(--color-primary, #000A9C) !important;
+  margin-bottom: 28px !important;
   text-align: center;
   text-shadow: none !important;
 }
@@ -1956,7 +1957,7 @@ body::before {
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: 60px;
+  height: 68px;
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
@@ -1965,7 +1966,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 52px;
+  gap: 56px;
   width: max-content;
   height: 100%;
   animation: marqueeContinuous 38s linear infinite;
@@ -1982,16 +1983,16 @@ body::before {
 
 .client-logo-type {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 15px !important;
+  font-size: 16px !important;
   line-height: 1 !important;
-  height: 34px !important;
+  height: 44px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   vertical-align: middle !important;
   font-weight: 700;
   letter-spacing: 2.4px;
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: #374151 !important;
   text-transform: uppercase;
   white-space: nowrap;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -2004,49 +2005,29 @@ body::before {
 }
 
 .partner-logo-img {
-  height: 34px !important;
-  max-height: 34px !important;
+  height: 48px !important;
+  max-height: 48px !important;
   width: auto !important;
-  max-width: 220px !important;
+  max-width: 240px !important;
   object-fit: contain !important;
   object-position: center center !important;
   display: inline-block !important;
   vertical-align: middle !important;
-  filter: brightness(0) invert(1) opacity(0.92);
-  transition: filter 0.3s ease, transform 0.3s ease;
+  filter: none !important;
+  opacity: 0.94;
+  transition: filter 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
   flex-shrink: 0 !important;
   margin: 0 !important;
 }
 
-/* Individual visual height equalization for logo aspect ratios */
-.partner-logo-img[src*="aws"] {
-  height: 32px !important;
-  max-height: 32px !important;
-}
-
-.partner-logo-img[src*="azure"] {
-  height: 34px !important;
-  max-height: 34px !important;
-}
-
-.partner-logo-img[src*="google"] {
-  height: 34px !important;
-  max-height: 34px !important;
-  max-width: 220px !important;
-}
-
-.partner-logo-img[src*="n8n"] {
-  height: 33px !important;
-  max-height: 33px !important;
-}
-
 .partner-logo-img:hover {
-  filter: brightness(1) invert(0) opacity(1);
+  filter: none !important;
+  opacity: 1;
   transform: scale(1.06);
 }
 
 .client-logo-type:hover {
-  color: #FFFFFF !important;
+  color: #111827 !important;
   transform: scale(1.06);
 }
 
@@ -2060,39 +2041,69 @@ body::before {
   letter-spacing: 1px;
 }
 
-@keyframes pulseGlow {
-  0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
-  50% { transform: translateX(-50%) scale(1.08); opacity: 1; }
-  100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+/* Hero Overlay Gradient for Landing (Transparent -> White Center -> Transparent) */
+.hero-landing .hero-overlay-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.6) 12%, 
+    rgba(255, 255, 255, 0.98) 26%, 
+    rgba(255, 255, 255, 0.98) 74%, 
+    rgba(255, 255, 255, 0.6) 88%, 
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
 }
 
-.hero-content {
+/* Default Inner Pages Hero Overlay Gradient (Left-to-Right: White -> Transparent) */
+.hero:not(.hero-landing) .hero-overlay-gradient,
+.solution-hero:not(.hero-landing) .hero-overlay-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg, 
+    #FFFFFF 0%, 
+    rgba(255, 255, 255, 0.98) 45%, 
+    rgba(255, 255, 255, 0.6) 75%, 
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+}
+
+/* Homepage Landing Hero Centered */
+.hero-landing .hero-content {
   position: relative;
   z-index: 2;
   max-width: var(--max-width);
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  text-align: left;
+  justify-content: center !important;
+  text-align: center !important;
 }
 
-.hero-text-col {
-  text-align: left;
+.hero-landing .hero-text-col {
+  text-align: center !important;
   max-width: 920px;
-  margin: 0;
+  margin: 0 auto !important;
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center !important;
   width: 100%;
 }
 
-.hero-text-col-v2 {
-  max-width: 650px !important;
-}
-
-.hero-title {
+.hero-landing .hero-title {
   font-family: var(--font-heading);
   font-size: clamp(20px, 3.3vw, 46px);
   font-weight: 600;
@@ -2102,26 +2113,78 @@ body::before {
   width: 100%;
   color: var(--text-main);
   margin-bottom: var(--spacing-24);
-  text-align: left;
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
-.hero-copy {
+.hero-landing .hero-copy {
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.7;
   color: var(--text-muted);
   max-width: 720px;
-  margin-left: 0 !important;
+  margin-left: auto !important;
   margin-right: auto !important;
   margin-bottom: var(--spacing-48);
-  text-align: left;
+  text-align: center !important;
 }
 
-.hero-buttons {
+.hero-landing .hero-buttons {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center !important;
+  align-items: center !important;
   gap: var(--spacing-16);
   flex-wrap: wrap;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Inner Pages Hero Left-Aligned */
+.hero:not(.hero-landing) .hero-content,
+.solution-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+
+.hero:not(.hero-landing) .hero-text-col,
+.solution-hero .hero-text-col {
+  text-align: left !important;
+  max-width: 920px;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start !important;
+  width: 100%;
+}
+
+.hero:not(.hero-landing) .hero-title,
+.solution-hero .hero-title {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.hero:not(.hero-landing) .hero-copy,
+.solution-hero .hero-copy {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.hero:not(.hero-landing) .hero-buttons,
+.solution-hero .hero-buttons {
+  justify-content: flex-start !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
 }
 
 #heroCanvas {
@@ -2297,21 +2360,21 @@ body::before {
 .reto-pain-tag {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: none !important;
   border: none !important;
   border-radius: 0 !important;
   padding: 0 !important;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 12.5px !important;
+  font-weight: 600;
   color: #0F172A !important;
   white-space: normal;
   box-shadow: none !important;
 }
 
 .reto-pain-icon {
-  width: 18px;
-  height: 18px;
+  width: 15px !important;
+  height: 15px !important;
   flex-shrink: 0;
   stroke: #DC2626 !important;
 }
@@ -2630,19 +2693,20 @@ body::before {
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--color-primary, rgb(0, 10, 156)) !important;
+  color: #FFFFFF !important;
   padding-bottom: 4px;
-  border-bottom: 1.5px solid var(--color-primary, rgb(0, 10, 156));
+  border-bottom: 1.5px solid #FFFFFF !important;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   text-decoration: none;
   width: fit-content;
-  transition: border-color 0.25s ease, gap 0.25s ease;
+  transition: border-color 0.25s ease, gap 0.25s ease, color 0.25s ease;
 }
 
 #unidades .unit-link:hover {
-  border-color: var(--color-brand-dark, rgb(0, 8, 120));
+  border-color: #FFFFFF !important;
+  color: #FFFFFF !important;
   gap: 12px;
 }
 
@@ -4205,7 +4269,9 @@ section, div[id] {
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: #FFFFFF !important;
+  padding-bottom: 4px;
+  border-bottom: 1.5px solid #FFFFFF !important;
   margin-bottom: 10px;
   display: inline-block;
 }
