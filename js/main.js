@@ -30,12 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
       header.classList.remove('header-shrunk');
     }
 
-    // Auto-hide when scrolling down, show when scrolling up
-    if (currentScrollY > lastScrollY && currentScrollY > 90 && (!navMenu || !navMenu.classList.contains('open'))) {
-      header.classList.add('header-hidden');
-    } else {
-      header.classList.remove('header-hidden');
-    }
+    // Header is ALWAYS visible during scroll
+    header.classList.remove('header-hidden');
 
     lastScrollY = currentScrollY;
   });
@@ -420,7 +416,209 @@ document.addEventListener('DOMContentLoaded', () => {
     video.volume = 0;
   });
 
+  /* ==========================================
+     LANGUAGE SELECTOR DROPDOWN & SWITCHING
+     ========================================== */
+  const initLanguageSelector = () => {
+    const langSelectorBtn = document.getElementById('langSelectorBtn');
+    const langSelectorDropdown = document.querySelector('.lang-selector-dropdown');
+
+    if (!langSelectorBtn || !langSelectorDropdown) return;
+
+    langSelectorBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = langSelectorDropdown.classList.toggle('open');
+      langSelectorBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!langSelectorDropdown.contains(e.target)) {
+        langSelectorDropdown.classList.remove('open');
+        langSelectorBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && langSelectorDropdown.classList.contains('open')) {
+        langSelectorDropdown.classList.remove('open');
+        langSelectorBtn.setAttribute('aria-expanded', 'false');
+        langSelectorBtn.focus();
+      }
+    });
+
+    // Automatically compute target URL for equivalent page in opposite language
+    const currentPath = window.location.pathname;
+    const langOptions = langSelectorDropdown.querySelectorAll('.lang-option');
+
+    langOptions.forEach(opt => {
+      const targetLang = opt.getAttribute('data-lang');
+      let targetPath = '';
+
+      if (currentPath.includes('aviso-de-privacidad.html')) {
+        targetPath = targetLang === 'EN' ? '/EN/privacy-notice.html' : '/ES/aviso-de-privacidad.html';
+      } else if (currentPath.includes('privacy-notice.html')) {
+        targetPath = targetLang === 'ES' ? '/ES/aviso-de-privacidad.html' : '/EN/privacy-notice.html';
+      } else if (currentPath.includes('/EN/')) {
+        targetPath = currentPath.replace('/EN/', `/${targetLang}/`);
+      } else if (currentPath.includes('/ES/')) {
+        targetPath = currentPath.replace('/ES/', `/${targetLang}/`);
+      } else {
+        const pageName = currentPath.split('/').pop() || 'index.html';
+        const cleanPage = pageName === '' ? 'index.html' : pageName;
+        if (currentPath.includes('/soluciones/')) {
+          targetPath = `/${targetLang}/soluciones/${cleanPage}`;
+        } else {
+          targetPath = `/${targetLang}/${cleanPage}`;
+        }
+      }
+
+      opt.setAttribute('href', targetPath);
+    });
+  };
+
   initScrollReveal();
   initMethodologyScrollReactive();
   initCaseVideoHover();
+  initLanguageSelector();
+
+  /* ==========================================
+     COOKIE CONSENT BANNER & PREFERENCES CONTROLLER
+     ========================================== */
+  const initCookieConsent = () => {
+    const isEn = window.location.pathname.includes('/EN/');
+    const storageKey = 'drapiar_cookie_consent';
+    const savedConsent = localStorage.getItem(storageKey);
+
+    // Create Cookie Banner HTML
+    const bannerHTML = `
+      <div id="cookieBanner" class="cookie-banner-wrap" role="region" aria-label="Cookie consent">
+        <p class="cookie-text">
+          ${isEn 
+            ? 'We use cookies to improve your experience and analyze site usage.' 
+            : 'Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio.'}
+        </p>
+        <div class="cookie-actions">
+          <button type="button" id="cookieAcceptBtn" class="btn-cookie-accept">${isEn ? 'ACCEPT' : 'ACEPTAR'}</button>
+          <button type="button" id="cookieDenyBtn" class="btn-cookie-deny">${isEn ? 'DENY' : 'RECHAZAR'}</button>
+          <button type="button" id="cookieManageBtn" class="btn-cookie-manage">${isEn ? 'MANAGE' : 'CONFIGURAR'}</button>
+        </div>
+      </div>
+
+      <div id="cookieModal" class="cookie-modal-overlay" aria-hidden="true" role="dialog">
+        <div class="cookie-modal-card">
+          <h4 class="cookie-modal-title">${isEn ? 'Cookie Preferences' : 'Preferencias de Cookies'}</h4>
+          <p class="cookie-modal-desc">
+            ${isEn 
+              ? 'Manage your privacy preferences for optional technologies. For details, read our' 
+              : 'Gestiona tus preferencias de privacidad para tecnologías opcionales. Para detalles, consulta nuestro'}
+            <a href="${isEn ? '/EN/privacy-notice.html' : '/ES/aviso-de-privacidad.html'}" style="color: #60A5FA; text-decoration: underline;">
+              ${isEn ? 'Privacy Notice' : 'Aviso de Privacidad'}
+            </a>.
+          </p>
+
+          <div class="cookie-option-row">
+            <div class="cookie-option-info">
+              <h5>${isEn ? 'Strictly Necessary Cookies' : 'Cookies Estrictamente Necesarias'}</h5>
+              <p>${isEn ? 'Required for core security, navigation, and language settings.' : 'Requeridas para seguridad, navegación y selección de idioma.'}</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked disabled>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="cookie-option-row">
+            <div class="cookie-option-info">
+              <h5>${isEn ? 'Analytics & Performance' : 'Analíticas y Rendimiento'}</h5>
+              <p>${isEn ? 'Allows anonymous aggregate traffic measurement.' : 'Permite medir el tráfico del sitio de forma anónima.'}</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="analyticsToggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="cookie-modal-footer">
+            <button type="button" id="cookieSavePrefBtn" class="btn-cookie-accept" style="padding: 10px 20px;">
+              ${isEn ? 'Save Preferences' : 'Guardar Preferencias'}
+            </button>
+            <button type="button" id="cookieCloseModalBtn" class="btn-cookie-deny" style="padding: 10px 16px;">
+              ${isEn ? 'Close' : 'Cerrar'}
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', bannerHTML);
+
+    const banner = document.getElementById('cookieBanner');
+    const modal = document.getElementById('cookieModal');
+    const acceptBtn = document.getElementById('cookieAcceptBtn');
+    const denyBtn = document.getElementById('cookieDenyBtn');
+    const manageBtn = document.getElementById('cookieManageBtn');
+    const savePrefBtn = document.getElementById('cookieSavePrefBtn');
+    const closeModalBtn = document.getElementById('cookieCloseModalBtn');
+    const analyticsToggle = document.getElementById('analyticsToggle');
+
+    // Show banner if no consent choice saved
+    if (!savedConsent) {
+      setTimeout(() => {
+        if (banner) banner.classList.add('active');
+      }, 700);
+    } else {
+      try {
+        const parsed = JSON.parse(savedConsent);
+        if (analyticsToggle) {
+          analyticsToggle.checked = parsed.analytics === true;
+        }
+      } catch(e) {}
+    }
+
+    const saveChoice = (choice, analytics = false) => {
+      const data = { choice, analytics, timestamp: Date.now() };
+      localStorage.setItem(storageKey, JSON.stringify(data));
+      if (banner) banner.classList.remove('active');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    };
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () => saveChoice('accepted', true));
+    }
+
+    if (denyBtn) {
+      denyBtn.addEventListener('click', () => saveChoice('denied', false));
+    }
+
+    if (manageBtn) {
+      manageBtn.addEventListener('click', () => {
+        if (modal) {
+          modal.classList.add('active');
+          modal.setAttribute('aria-hidden', 'false');
+        }
+      });
+    }
+
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener('click', () => {
+        if (modal) {
+          modal.classList.remove('active');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+
+    if (savePrefBtn) {
+      savePrefBtn.addEventListener('click', () => {
+        const isAnalyticsOn = analyticsToggle ? analyticsToggle.checked : false;
+        saveChoice('managed', isAnalyticsOn);
+      });
+    }
+  };
+
+  initCookieConsent();
+
 });

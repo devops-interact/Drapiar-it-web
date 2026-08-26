@@ -8,7 +8,7 @@
 
   const HERO_CANVAS_ID = 'heroCanvas';
   const RAMP = ' .:-=+*#%@WMB8&';
-  const CELL = 11;
+  const CELL = 9;
 
   // Hero Canvas variables
   let heroCanvas, heroCtx;
@@ -49,13 +49,13 @@
     noiseCtx.putImageData(imgData, 0, 0);
   }
 
-  // Multi-frequency wave noise
+  // Multi-frequency fluid wave noise - smooth continuous wave undulations
   function noise(x, y, t) {
     return (
-      Math.sin(x * 0.14 + t * 1.4) +
-      Math.cos(y * 0.18 - t * 1.1) +
-      Math.sin((x * 0.7 + y * 0.9) * 0.08 + t * 0.8) +
-      Math.cos((x * 0.3 - y * 0.4) * 0.12 + t * 0.6)
+      Math.sin(x * 0.18 + t * 1.5) +
+      Math.cos(y * 0.22 - t * 1.2) +
+      Math.sin((x * 0.5 + y * 0.6) * 0.12 + t * 0.9) +
+      Math.cos((x * 0.35 - y * 0.4) * 0.15 + t * 0.7)
     ) / 4;
   }
 
@@ -90,7 +90,7 @@
 
     heroCtx.setTransform(1, 0, 0, 1, 0, 0);
     heroCtx.scale(heroDpr, heroDpr);
-    heroCtx.font = `bold ${CELL}px "Space Mono", monospace`;
+    heroCtx.font = `800 ${CELL + 1}px "Space Mono", monospace`;
     heroCtx.textBaseline = 'top';
   }
 
@@ -105,55 +105,59 @@
     heroCtx.fillStyle = '#FFFFFF';
     heroCtx.fillRect(0, 0, heroWidth, heroHeight);
 
-    const isMobile = heroWidth < 768;
-
-    // 2. Full-Width Balanced Glows across entire Hero
-    const centerGlow = heroCtx.createRadialGradient(heroWidth * 0.5, heroHeight * 0.5, 50, heroWidth * 0.5, heroHeight * 0.5, Math.max(heroWidth * 0.6, 600));
-    centerGlow.addColorStop(0, 'rgba(0, 10, 156, 0.08)');
-    centerGlow.addColorStop(0.5, 'rgba(0, 75, 255, 0.04)');
-    centerGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-    heroCtx.fillStyle = centerGlow;
+    // 2. Ambient Edge Glows (Dark corporate blue #000A9C gradients on side borders)
+    const leftGlow = heroCtx.createRadialGradient(0, heroHeight * 0.5, 10, 0, heroHeight * 0.5, heroWidth * 0.5);
+    leftGlow.addColorStop(0, 'rgba(0, 10, 156, 0.16)');
+    leftGlow.addColorStop(0.6, 'rgba(0, 10, 156, 0.05)');
+    leftGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    heroCtx.fillStyle = leftGlow;
     heroCtx.fillRect(0, 0, heroWidth, heroHeight);
 
-    const topLeftGlow = heroCtx.createRadialGradient(0, 0, 20, 0, 0, 550);
-    topLeftGlow.addColorStop(0, 'rgba(0, 75, 255, 0.18)');
-    topLeftGlow.addColorStop(0.5, 'rgba(0, 10, 156, 0.05)');
-    topLeftGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-    heroCtx.fillStyle = topLeftGlow;
+    const rightGlow = heroCtx.createRadialGradient(heroWidth, heroHeight * 0.5, 10, heroWidth, heroHeight * 0.5, heroWidth * 0.5);
+    rightGlow.addColorStop(0, 'rgba(0, 10, 156, 0.16)');
+    rightGlow.addColorStop(0.6, 'rgba(0, 10, 156, 0.05)');
+    rightGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    heroCtx.fillStyle = rightGlow;
     heroCtx.fillRect(0, 0, heroWidth, heroHeight);
 
-    const topRightGlow = heroCtx.createRadialGradient(heroWidth, 0, 20, heroWidth, 0, 550);
-    topRightGlow.addColorStop(0, 'rgba(0, 75, 255, 0.18)');
-    topRightGlow.addColorStop(0.5, 'rgba(0, 10, 156, 0.05)');
-    topRightGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    // 3. Full-Width ASCII Wave Matrix (smooth recognizable wave bands)
+    const cX = heroWidth * 0.5;
+    const cY = heroHeight * 0.45;
 
-    heroCtx.fillStyle = topRightGlow;
-    heroCtx.fillRect(0, 0, heroWidth, heroHeight);
-
-    // 3. Full-Width ASCII Wave Matrix across entire hero
     for (let row = 0; row < heroRows; row++) {
       for (let col = 0; col < heroCols; col++) {
         const px = col * CELL;
         const py = row * CELL;
 
-        const dx = px - heroMouseX;
-        const dy = py - heroMouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const ripple = Math.max(0, 1 - dist / 360);
+        // Interactive mouse ripple (Subtle localized 130px interaction radius)
+        const dxMouse = px - heroMouseX;
+        const dyMouse = py - heroMouseY;
+        const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+        const ripple = Math.max(0, 1 - distMouse / 130);
 
-        const waveVal = (noise(col, row, heroTime) + 1) / 2;
+        // Normalized distance from center of Hero
+        const relX = Math.abs(px - cX) / cX;
+        const relY = Math.abs(py - cY) / (heroHeight * 0.5);
+        
+        const edgeDist = Math.max(relX * 1.1, relY * 0.7);
+        const edgeWeight = Math.pow(Math.min(1, Math.max(0, edgeDist)), 1.0);
 
-        let intensity = (waveVal * 1.5 + ripple * 0.8);
+        // Multi-frequency wave calculation tuned for visible fluid wave crests
+        const waveVal = (noise(col * 0.85, row * 0.85, heroTime) + 1) / 2;
+
+        // Balanced intensity profile
+        let intensity = (waveVal * 1.5 + ripple * 0.6) * (0.25 + 0.75 * edgeWeight);
         intensity = Math.min(1, Math.max(0, intensity));
 
         const charIndex = Math.floor(intensity * (RAMP.length - 1));
         const char = RAMP[charIndex];
 
-        const opacity = (0.28 + intensity * 0.65 + ripple * 0.45);
-        heroCtx.fillStyle = `rgba(0, 10, 156, ${Math.min(1, opacity).toFixed(3)})`;
+        // Opacity profile: distinct fluid wave contours with subtle mouse highlight
+        let opacity = 0.05 + edgeWeight * 0.30 + intensity * 0.50 + ripple * 0.3;
+        opacity = Math.min(0.88, Math.max(0.04, opacity));
 
+        // Deep corporate dark blue (#000A9C)
+        heroCtx.fillStyle = `rgba(0, 10, 156, ${opacity.toFixed(3)})`;
         heroCtx.fillText(char, px, py);
       }
     }
