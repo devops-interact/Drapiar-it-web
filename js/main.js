@@ -444,20 +444,31 @@ document.addEventListener('DOMContentLoaded', () => {
         langSelectorBtn.setAttribute('aria-expanded', 'false');
         langSelectorBtn.focus();
       }
-    });
-
-    // Automatically compute target URL for equivalent page in opposite language
+    });    // Automatically compute target URL for equivalent page in opposite language
     const currentPath = window.location.pathname;
     const langOptions = langSelectorDropdown.querySelectorAll('.lang-option');
+
+    const getRepoPrefix = () => {
+      const parts = currentPath.split('/');
+      const enIdx = parts.indexOf('EN');
+      const esIdx = parts.indexOf('ES');
+      const langIdx = enIdx !== -1 ? enIdx : esIdx;
+      if (langIdx > 1) {
+        return parts.slice(0, langIdx).join('/');
+      }
+      return '';
+    };
+
+    const prefix = getRepoPrefix();
 
     langOptions.forEach(opt => {
       const targetLang = opt.getAttribute('data-lang');
       let targetPath = '';
 
       if (currentPath.includes('aviso-de-privacidad.html')) {
-        targetPath = targetLang === 'EN' ? '/EN/privacy-notice.html' : '/ES/aviso-de-privacidad.html';
+        targetPath = targetLang === 'EN' ? `${prefix}/EN/privacy-notice.html` : `${prefix}/ES/aviso-de-privacidad.html`;
       } else if (currentPath.includes('privacy-notice.html')) {
-        targetPath = targetLang === 'ES' ? '/ES/aviso-de-privacidad.html' : '/EN/privacy-notice.html';
+        targetPath = targetLang === 'ES' ? `${prefix}/ES/aviso-de-privacidad.html` : `${prefix}/EN/privacy-notice.html`;
       } else if (currentPath.includes('/EN/')) {
         targetPath = currentPath.replace('/EN/', `/${targetLang}/`);
       } else if (currentPath.includes('/ES/')) {
@@ -466,9 +477,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const pageName = currentPath.split('/').pop() || 'index.html';
         const cleanPage = pageName === '' ? 'index.html' : pageName;
         if (currentPath.includes('/soluciones/')) {
-          targetPath = `/${targetLang}/soluciones/${cleanPage}`;
+          targetPath = `${prefix}/${targetLang}/soluciones/${cleanPage}`;
         } else {
-          targetPath = `/${targetLang}/${cleanPage}`;
+          targetPath = `${prefix}/${targetLang}/${cleanPage}`;
         }
       }
 
@@ -488,6 +499,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const isEn = window.location.pathname.includes('/EN/');
     const storageKey = 'drapiar_cookie_consent';
     const savedConsent = localStorage.getItem(storageKey);
+
+    const getRepoPrefix = () => {
+      const parts = window.location.pathname.split('/');
+      const enIdx = parts.indexOf('EN');
+      const esIdx = parts.indexOf('ES');
+      const langIdx = enIdx !== -1 ? enIdx : esIdx;
+      if (langIdx > 1) {
+        return parts.slice(0, langIdx).join('/');
+      }
+      return '';
+    };
+    const prefix = getRepoPrefix();
 
     // Create Cookie Banner HTML
     const bannerHTML = `
@@ -511,10 +534,10 @@ document.addEventListener('DOMContentLoaded', () => {
             ${isEn 
               ? 'Manage your privacy preferences for optional technologies. For details, read our' 
               : 'Gestiona tus preferencias de privacidad para tecnologías opcionales. Para detalles, consulta nuestro'}
-            <a href="${isEn ? '/EN/privacy-notice.html' : '/ES/aviso-de-privacidad.html'}" style="color: #60A5FA; text-decoration: underline;">
+            <a href="${isEn ? `${prefix}/EN/privacy-notice.html` : `${prefix}/ES/aviso-de-privacidad.html`}" style="color: #60A5FA; text-decoration: underline;">
               ${isEn ? 'Privacy Notice' : 'Aviso de Privacidad'}
             </a>.
-          </p>
+          </p>`</p>
 
           <div class="cookie-option-row">
             <div class="cookie-option-info">
