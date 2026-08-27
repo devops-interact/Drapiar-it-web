@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="${isEn ? `${prefix}/EN/privacy-notice.html` : `${prefix}/ES/aviso-de-privacidad.html`}" style="color: #60A5FA; text-decoration: underline;">
               ${isEn ? 'Privacy Notice' : 'Aviso de Privacidad'}
             </a>.
-          </p>`</p>
+          </p>
 
           <div class="cookie-option-row">
             <div class="cookie-option-info">
