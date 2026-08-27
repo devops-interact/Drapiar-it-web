@@ -324,11 +324,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', checkScrollReveal, { passive: true });
     window.addEventListener('resize', checkScrollReveal, { passive: true });
     
-    // Double requestAnimationFrame ensures browser paints the initial opacity:0 state before revealing
+    // Double requestAnimationFrame ensures browser paints and immediately reveals all sections
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         checkScrollReveal();
-        setTimeout(checkScrollReveal, 200);
+        document.querySelectorAll('.reveal, .methodology-step').forEach(el => el.classList.add('revealed'));
+        setTimeout(() => {
+          document.querySelectorAll('.reveal, .methodology-step').forEach(el => el.classList.add('revealed'));
+        }, 150);
       });
     });
   };

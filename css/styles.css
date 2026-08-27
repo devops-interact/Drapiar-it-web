@@ -5564,12 +5564,17 @@ section, div[id] {
 
 
 
-/* Mobile Language Selector Guarantee */
+
+/* Mobile Header Clean Layout Guarantee */
 @media (max-width: 991px) {
   .header-actions {
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
+  }
+  .header-actions .btn,
+  .header-actions .btn-primary {
+    display: none !important;
   }
   .lang-selector-dropdown {
     display: flex !important;
@@ -5578,7 +5583,37 @@ section, div[id] {
     padding: 5px 10px !important;
     height: 34px !important;
   }
+  .menu-toggle {
+    display: flex !important;
+    z-index: 120 !important;
+  }
+  .header-actions-mobile {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 16px !important;
+    padding-top: 16px !important;
+    border-top: 1px solid rgba(0, 10, 156, 0.12) !important;
+  }
+  .header-actions-mobile .btn {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
 }
+
+
+/* Guaranteed 100% Section Visibility Fallback */
+.reveal,
+.methodology-step,
+.step-number,
+.case-editorial-card,
+.cases-editorial-section {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
 
 
 /* ==========================================================================
