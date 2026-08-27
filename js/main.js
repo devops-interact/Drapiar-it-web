@@ -276,6 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
       '.about-box',
       '.contact-info-panel',
       '.contact-form-panel',
+      '.cases-editorial-card',
+      '.case-editorial-card',
       '.reto-left',
       '.methodology-timeline'
     ];
@@ -366,10 +368,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const thresholds = [0.08, 0.32, 0.58, 0.82];
 
       steps.forEach((step, idx) => {
-        if (progress >= thresholds[idx]) {
+        if (progress >= thresholds[idx] || rect.top < windowHeight * 0.75) {
           step.classList.add('revealed');
-        } else {
-          step.classList.remove('revealed');
         }
       });
 
@@ -444,7 +444,8 @@ document.addEventListener('DOMContentLoaded', () => {
         langSelectorBtn.setAttribute('aria-expanded', 'false');
         langSelectorBtn.focus();
       }
-    });    // Automatically compute target URL for equivalent page in opposite language
+    });
+    // Automatically compute target URL for equivalent page in opposite language
     const currentPath = window.location.pathname;
     const langOptions = langSelectorDropdown.querySelectorAll('.lang-option');
 
